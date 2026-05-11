@@ -1,0 +1,43 @@
+syntax = "proto3";
+import "common.proto";
+package client;
+
+
+
+message Client {
+  string id               = 1;
+  string nom              = 2;
+  string email            = 3;
+  string telephone        = 4;
+  string type             = 5; // societe | patente | personne_physique
+  string matricule_fiscal = 6;
+  string cabinet_id       = 7;
+  string cabinet_nom      = 8; // dénormalisé
+  string adresse          = 9;
+  string created_at       = 10;
+}
+
+//  MESSAGES — Requests
+
+message CreateClientRequest {
+  string nom               = 1;
+  string email             = 2;
+  string telephone         = 3;
+  string type              = 4;
+  string matricule_fiscal  = 5;
+  string cabinet_id        = 6;
+  string adresse           = 7;
+}
+message GetClientRequest { string id = 1; }
+
+
+//  MESSAGES — Responses
+message ClientResponse          { Client    client    = 1; }
+
+message ClientsListResponse     { repeated Client    clients    = 1; }
+
+service ClientService{
+  rpc CreateClient    (CreateClientRequest) returns (ClientResponse);
+  rpc GetClient       (GetClientRequest)    returns (ClientResponse);
+  rpc GetAllClients   (common.EmptyRequest)        returns (ClientsListResponse);
+}

@@ -1,0 +1,33 @@
+syntax = "proto3";
+import "common.proto";
+package cabinet;
+
+//  MESSAGES — Entités
+message Cabinet {
+  string id          = 1;
+  string nom         = 2;
+  string adresse     = 3;
+  string email       = 4;
+  string telephone   = 5;
+  string created_at  = 6;
+}
+
+//  MESSAGES — Requests
+message CreateCabinetRequest {
+  string nom       = 1;
+  string adresse   = 2;
+  string email     = 3;
+  string telephone = 4;
+}
+message GetCabinetRequest { string id = 1; }
+
+
+//  MESSAGES — Responses
+message CabinetResponse         { Cabinet   cabinet   = 1; }
+message CabinetsListResponse    { repeated Cabinet   cabinets   = 1; }
+
+service CabinetService{
+  rpc CreateCabinet  (CreateCabinetRequest) returns (CabinetResponse);
+  rpc GetCabinet     (GetCabinetRequest)    returns (CabinetResponse);
+  rpc GetAllCabinets (common.EmptyRequest)         returns (CabinetsListResponse);
+}

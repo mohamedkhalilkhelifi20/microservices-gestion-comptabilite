@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package assignation;
+
+
+message ComptableClient {
+  string id           = 1;
+  string comptable_id = 2;
+  string client_id    = 3;
+  string specialite   = 4;
+  string date_debut   = 5;
+  string statut       = 6; // actif | inactif
+}
+
+//  MESSAGES — Requests
+
+
+// Assignation N..N
+message AssignComptableRequest {
+  string comptable_id = 1;
+  string client_id    = 2;
+  string specialite   = 3;
+}
+message GetAssignationsRequest { string client_id = 1; }
+
+//  MESSAGES — Responses
+
+message AssignResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+message AssignationsListResponse {
+  repeated ComptableClient assignations = 1;
+}
+
+//  SERVICE
+service AssignationService {
+  rpc AssignComptableToClient (AssignComptableRequest)  returns (AssignResponse);
+  rpc GetAssignationsByClient (GetAssignationsRequest)  returns (AssignationsListResponse);
+}
