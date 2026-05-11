@@ -1,0 +1,111 @@
+# Types
+
+type Cabinet {
+    id:         String!
+    nom:        String!
+    adresse:    String
+    email:      String!
+    telephone:  String
+    created_at: String
+}
+
+type Comptable {
+    id:             String!
+    nom:            String!
+    email:          String!
+    telephone:      String
+    specialite:     String!
+    cabinet_id:     String!
+    cabinet_nom:    String
+    ordre_ordinal:  String
+    numero_licence: String
+    created_at:     String
+}
+
+type Client {
+    id:               String!
+    nom:              String!
+    email:            String!
+    telephone:        String
+    type:             String!
+    matricule_fiscal: String
+    cabinet_id:       String!
+    cabinet_nom:      String
+    adresse:          String
+    created_at:       String
+}
+
+type Assignation {
+    id:           String!
+    comptable_id: String!
+    client_id:    String!
+    specialite:   String
+    date_debut:   String
+    statut:       String
+}
+
+type AssignResponse {
+    success: Boolean!
+    message: String!
+}
+
+# Queries
+
+type Query {
+    # Cabinet
+    cabinet(id: String!):   Cabinet
+    cabinets:               [Cabinet]
+
+    # Comptable
+    comptable(id: String!):                  Comptable
+    comptables:                              [Comptable]
+    comptablesBySpecialite(specialite: String!): [Comptable]
+
+    # Client
+    client(id: String!):    Client
+    clients:                [Client]
+
+    # Assignation
+    assignationsByClient(client_id: String!): [Assignation]
+}
+
+# Mutations
+
+type Mutation {
+    # Cabinet
+    createCabinet(
+        nom:       String!
+        adresse:   String
+        email:     String!
+        telephone: String
+    ): Cabinet
+
+    # Comptable
+    createComptable(
+        nom:            String!
+        email:          String!
+        telephone:      String
+        specialite:     String!
+        cabinet_id:     String!
+        ordre_ordinal:  String
+        numero_licence: String
+    ): Comptable
+
+    # Client
+    createClient(
+        nom:              String!
+        email:            String!
+        telephone:        String
+        type:             String!
+        matricule_fiscal: String
+        cabinet_id:       String!
+        adresse:          String
+    ): Client
+
+    # Assignation
+    assignComptableToClient(
+        comptable_id: String!
+        client_id:    String!
+        specialite:   String
+    ): AssignResponse
+}
