@@ -37,7 +37,7 @@ async function start() {
 
     // Health check
     app.get('/', (req, res) => res.json({
-        service: 'Nixam API Gateway',
+        service: 'API Gateway',
         status:  'running',
         rest: [
             'POST   /api/cabinets',
@@ -57,7 +57,7 @@ async function start() {
     }));
 
     // ── GraphQL ───────────────────────────────────
-    const typeDefs  = fs.readFileSync(path.join(__dirname, 'schema.gql'), 'utf8');
+    const typeDefs  = fs.readFileSync(path.join(__dirname, 'schemas', 'schema.gql'), 'utf8');
     const schema    = buildSchema(typeDefs);
     const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 

@@ -1,7 +1,7 @@
 'use strict';
 
 const { Router }                  = require('express');
-const { clientClient, call }      = require('../grpcClients');
+const { clientClient, call }      = require('../grpc/grpcClients');
 
 const router = Router();
 

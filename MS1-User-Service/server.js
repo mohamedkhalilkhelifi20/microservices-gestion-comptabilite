@@ -1,8 +1,10 @@
+'use strict';
+
 const path        = require('path');
 const grpc        = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
-const { initDatabase }         = require('./db/database');
+const initDatabase           = require('./db/database');
 const { disconnect: kafkaOff } = require('./kafka/producer');
 
 const cabinetHandler     = require('./handlers/cabinetHandler');
@@ -10,29 +12,27 @@ const comptableHandler   = require('./handlers/comptableHandler');
 const clientHandler      = require('./handlers/clientHandler');
 const assignationHandler = require('./handlers/assignationHandler');
 
-//  CONFIG
-const PORT     = process.env.MS1_PORT || '50051';
+const PORT      = process.env.MS1_PORT || '50051';
 const PROTO_DIR = path.join(__dirname, 'proto');
 
 const LOADER_OPTIONS = {
-    keepCase: false,
-    longs:    String,
-    enums:    String,
-    defaults: true,
-    oneofs:   true,
+    keepCase:    false,
+    longs:       String,
+    enums:       String,
+    defaults:    true,
+    oneofs:      true,
     includeDirs: [PROTO_DIR],
 };
 
-//  CHARGEMENT DES PROTO
-const cabinetPkg     = grpc.loadPackageDefinition(
+const cabinetPkg = grpc.loadPackageDefinition(
     protoLoader.loadSync(path.join(PROTO_DIR, 'cabinet.proto'), LOADER_OPTIONS)
 ).cabinet;
 
-const comptablePkg   = grpc.loadPackageDefinition(
+const comptablePkg = grpc.loadPackageDefinition(
     protoLoader.loadSync(path.join(PROTO_DIR, 'comptable.proto'), LOADER_OPTIONS)
 ).comptable;
 
-const clientPkg      = grpc.loadPackageDefinition(
+const clientPkg = grpc.loadPackageDefinition(
     protoLoader.loadSync(path.join(PROTO_DIR, 'client.proto'), LOADER_OPTIONS)
 ).client;
 
@@ -40,7 +40,6 @@ const assignationPkg = grpc.loadPackageDefinition(
     protoLoader.loadSync(path.join(PROTO_DIR, 'assignation.proto'), LOADER_OPTIONS)
 ).assignation;
 
-//  CRÉATION DU SERVEUR gRPC
 function buildServer() {
     const server = new grpc.Server();
 
@@ -71,12 +70,9 @@ function buildServer() {
     return server;
 }
 
-//  DÉMARRAGE
 async function start() {
-    // 1. Initialiser la base de données SQLite
-    await initDatabase();
+    await initDatabase();  // ✅ await DANS une fonction async
 
-    // 2. Créer et démarrer le serveur gRPC
     const server = buildServer();
 
     server.bindAsync(
@@ -87,11 +83,10 @@ async function start() {
                 console.error('[MS1] Erreur démarrage gRPC :', err.message);
                 process.exit(1);
             }
-            console.log(`[MS1] gRPC server démarré sur le port ${port}`);
+            console.log(`[MS1] ✅ gRPC server démarré sur le port ${port}`);
         }
     );
 
-    // 3. Arrêt propre
     process.on('SIGINT',  () => shutdown(server));
     process.on('SIGTERM', () => shutdown(server));
 }

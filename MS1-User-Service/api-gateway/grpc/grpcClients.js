@@ -4,7 +4,7 @@ const path        = require('path');
 const grpc        = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
-const PROTO_DIR = path.join(__dirname, 'proto');
+const PROTO_DIR = path.join(__dirname, '..', '..', 'proto');
 const MS1_ADDR  = process.env.MS1_ADDR || 'localhost:50051';
 
 const OPTS = {
