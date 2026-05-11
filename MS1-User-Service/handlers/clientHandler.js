@@ -2,11 +2,15 @@
 
 const grpc    = require('@grpc/grpc-js');
 const service = require('../services/clientService');
+const kafka   = require('../kafka/producer');
 
 // CreateClient
 async function createClient(call, callback) {
     try {
         const client = await service.createClient(call.request);
+        kafka.publishUserCreated(client).catch(err =>
+            console.error('[MS1][Kafka] Erreur user.created :', err.message)
+        );
         callback(null, { client });
     } catch (err) {
         const notFound = err.message.includes('non trouvé');
