@@ -2,11 +2,14 @@
 
 const { v4: uuidv4 } = require('uuid');
 const initDatabase   = require('../db/database');
+const { verifyClientExists } = require('../grpc/ms1Client');
 
 //CreateAlerte
-
 async function createAlerte({ client_id, type, message, severity,
                                 entity_id, entity_type }) {
+    // Vérifier que le client existe dans MS1
+    await verifyClientExists(client_id);
+
     const db = await initDatabase();
 
     const doc = {
@@ -26,23 +29,17 @@ async function createAlerte({ client_id, type, message, severity,
     return rxDoc.toJSON();
 }
 
-//GetAlertes
-
-async function getAlertes({ client_id, unread_only }) {
-    const db = await initDatabase();
-
-    const selector = unread_only
-        ? { client_id, is_read: false }
-        : { client_id };
-
+// GetAlertes
+async function getAlertes({ client_id }) {
+    const db   = await initDatabase();
     const docs = await db.alertes.find({
-        selector,
-        sort: [{ created_at: 'desc' }],
+        selector: { client_id },
+        sort:     [{ created_at: 'desc' }],
     }).exec();
-
     return docs.map(d => d.toJSON());
 }
 
+//  GetAllAlertes
 async function getAllAlertes() {
     const db   = await initDatabase();
     const docs = await db.alertes.find({

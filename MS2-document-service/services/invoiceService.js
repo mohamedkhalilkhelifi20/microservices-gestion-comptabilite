@@ -1,10 +1,11 @@
 'use strict';
 
-const { v4: uuidv4 } = require('uuid');
-const crypto= require('crypto');
-const initDatabase= require('../db/database');
+const { v4: uuidv4 }    = require('uuid');
+const crypto            = require('crypto');
+const initDatabase      = require('../db/database');
+const { verifyClientExists, verifyComptableExists, verifyAssignation } = require('../grpc/ms1Client');
 
-// ── Helpers ────────────────────────────────────────────────────────────────
+//Helpers
 
 function calcTva(montant_ht, tva_rate) {
     const tva_montant = parseFloat((montant_ht * tva_rate / 100).toFixed(3));
@@ -19,11 +20,19 @@ function generateNumero(type) {
     return `${prefix}-${date}-${rand}`;
 }
 
-//CreateInvoice
+// CreateInvoice
 async function createInvoice({ type, client_id, client_nom, comptable_id,
                                  montant_ht, tva_rate, details_json }) {
-    const db = await initDatabase();
+    // 1. Vérifier que le client existe dans MS1
+    await verifyClientExists(client_id);
 
+    // 2. Vérifier que le comptable existe dans MS1
+    await verifyComptableExists(comptable_id);
+
+    // 3. Vérifier que l'assignation client↔comptable est active dans MS1
+    await verifyAssignation(client_id, comptable_id);
+
+    const db = await initDatabase();
     const { tva_montant, montant_ttc } = calcTva(montant_ht, tva_rate);
 
     const doc = {
@@ -50,16 +59,84 @@ async function createInvoice({ type, client_id, client_nom, comptable_id,
     return rxDoc.toJSON();
 }
 
-// ── SignInvoice
+// UpdateInvoice
+async function updateInvoice({ invoice_id, montant_ht, tva_rate, details_json }) {
+    const db  = await initDatabase();
+    const doc = await db.factures.findOne(invoice_id).exec();
+
+    if (!doc) throw new Error(`Facture non trouvée : ${invoice_id}`);
+
+    // Règle métier : seul un brouillon est modifiable
+    if (doc.statut !== 'brouillon') {
+        throw new Error(
+            `Impossible de modifier la facture ${invoice_id} — statut actuel : "${doc.statut}". Seuls les brouillons sont modifiables.`
+        );
+    }
+
+    const patch = {};
+
+    if (montant_ht && montant_ht > 0) {
+        const rate            = tva_rate && tva_rate > 0 ? tva_rate : doc.tva_rate;
+        const { tva_montant, montant_ttc } = calcTva(montant_ht, rate);
+        patch.montant_ht  = montant_ht;
+        patch.tva_rate    = rate;
+        patch.tva_montant = tva_montant;
+        patch.montant_ttc = montant_ttc;
+    } else if (tva_rate && tva_rate > 0) {
+        const { tva_montant, montant_ttc } = calcTva(doc.montant_ht, tva_rate);
+        patch.tva_rate    = tva_rate;
+        patch.tva_montant = tva_montant;
+        patch.montant_ttc = montant_ttc;
+    }
+
+    if (details_json && details_json !== '') {
+        patch.details_json = details_json;
+    }
+
+    if (Object.keys(patch).length === 0) {
+        throw new Error('Aucun champ à modifier fourni.');
+    }
+
+    await doc.patch(patch);
+    console.log(`[MS2] Facture mise à jour → ${invoice_id}`);
+    return doc.toJSON();
+}
+
+// DeleteInvoice
+async function deleteInvoice({ invoice_id }) {
+    const db  = await initDatabase();
+    const doc = await db.factures.findOne(invoice_id).exec();
+
+    if (!doc) throw new Error(`Facture non trouvée : ${invoice_id}`);
+
+    // Règle métier : seul un brouillon est supprimable
+    if (doc.statut !== 'brouillon') {
+        throw new Error(
+            `Impossible de supprimer la facture ${invoice_id} — statut actuel : "${doc.statut}". Seuls les brouillons sont supprimables.`
+        );
+    }
+
+    await doc.remove();
+    console.log(`[MS2] Facture supprimée → ${invoice_id}`);
+    return { success: true, message: `Facture ${invoice_id} supprimée avec succès` };
+}
+
+// SignInvoice
 async function signInvoice({ invoice_id, comptable_id }) {
     const db  = await initDatabase();
     const doc = await db.factures.findOne(invoice_id).exec();
+
     if (!doc) throw new Error(`Facture non trouvée : ${invoice_id}`);
     if (doc.statut === 'signee') throw new Error(`Facture déjà signée : ${invoice_id}`);
+    if (doc.statut === 'brouillon') throw new Error(
+        `Facture encore en brouillon : ${invoice_id}. Veuillez la valider avant de la signer.`
+    );
+
+    // Vérifier que le comptable signataire est bien assigné à ce client
+    await verifyAssignation(doc.client_id, comptable_id);
 
     const signed_at = new Date().toISOString();
-
-    const content = {
+    const content   = {
         invoice_id,
         numero:      doc.numero,
         client_id:   doc.client_id,
@@ -72,19 +149,12 @@ async function signInvoice({ invoice_id, comptable_id }) {
         .update(JSON.stringify(content))
         .digest('hex');
 
-    await doc.patch({
-        statut: 'signee',
-        signature_hash,
-        signed_by: comptable_id,
-        signed_at,
-    });
-
+    await doc.patch({ statut: 'signee', signature_hash, signed_by: comptable_id, signed_at });
     console.log(`[MS2] Facture signée → ${invoice_id} | hash: ${signature_hash.slice(0, 12)}...`);
-    return { success: true, message: `Facture ${doc.numero} signée`, signature_hash };
+    return { success: true, signature_hash, signed_at };
 }
 
 //GetInvoice
-
 async function getInvoice({ id }) {
     const db  = await initDatabase();
     const doc = await db.factures.findOne(id).exec();
@@ -102,6 +172,7 @@ async function getClientInvoices({ client_id }) {
     return docs.map(d => d.toJSON());
 }
 
+//GetAllInvoices
 async function getAllInvoices() {
     const db   = await initDatabase();
     const docs = await db.factures.find({
@@ -110,4 +181,7 @@ async function getAllInvoices() {
     return docs.map(d => ({ ...d._data }));
 }
 
-module.exports = { createInvoice, signInvoice, getInvoice, getClientInvoices, getAllInvoices };
+module.exports = {
+    createInvoice, updateInvoice, deleteInvoice,
+    signInvoice, getInvoice, getClientInvoices, getAllInvoices,
+};
