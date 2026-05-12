@@ -13,7 +13,7 @@ async function createDeclaration({ client_id, client_nom, comptable_id,
         selector: { client_id, type, periode, statut: 'brouillon' },
     }).exec();
     if (existing) throw new Error(
-        `Déclaration ${type} déjà en brouillon pour ${client_id} — période ${periode}`
+        `Déclaration ${type} déjà en brouillon pour ${client_nom} — période ${periode}`
     );
 
     const doc = {
