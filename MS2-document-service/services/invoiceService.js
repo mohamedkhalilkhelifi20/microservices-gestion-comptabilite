@@ -102,4 +102,12 @@ async function getClientInvoices({ client_id }) {
     return docs.map(d => d.toJSON());
 }
 
-module.exports = { createInvoice, signInvoice, getInvoice, getClientInvoices };
+async function getAllInvoices() {
+    const db   = await initDatabase();
+    const docs = await db.factures.find({
+        sort: [{ created_at: 'desc' }],
+    }).exec();
+    return docs.map(d => ({ ...d._data }));
+}
+
+module.exports = { createInvoice, signInvoice, getInvoice, getClientInvoices, getAllInvoices };

@@ -62,4 +62,23 @@ async function getDeclaration({ id }) {
     return doc.toJSON();
 }
 
-module.exports = { createDeclaration, validateDeclaration, getDeclaration };
+async function getClientDeclarations({ client_id }) {
+    const db   = await initDatabase();
+    const docs = await db.declarations.find({
+        selector: { client_id },
+        sort:     [{ created_at: 'desc' }],
+    }).exec();
+    return docs.map(d => ({ ...d._data }));
+}
+
+async function getAllDeclarations() {
+    const db   = await initDatabase();
+    const docs = await db.declarations.find({
+        sort: [{ created_at: 'desc' }],
+    }).exec();
+    return docs.map(d => ({ ...d._data }));
+}
+
+module.exports = { createDeclaration, validateDeclaration, getDeclaration,
+    getClientDeclarations, getAllDeclarations };
+

@@ -71,6 +71,16 @@ async function getClientInvoices(call, callback) {
     }
 }
 
+// GetAllInvoices
+async function getAllInvoices(call, callback) {
+    try {
+        const invoices = await invoiceService.getAllInvoices();
+        callback(null, { invoices });
+    } catch (err) {
+        callback({ code: grpc.status.INTERNAL, message: err.message });
+    }
+}
+
 //  DECLARATION HANDLERS
 // CreateDeclaration
 async function createDeclaration(call, callback) {
@@ -116,6 +126,27 @@ async function getDeclaration(call, callback) {
     }
 }
 
+// GetClientDeclarations
+async function getClientDeclarations(call, callback) {
+    try {
+        const declarations = await declService.getClientDeclarations(call.request);
+        callback(null, { declarations });
+    } catch (err) {
+        callback({ code: grpc.status.INTERNAL, message: err.message });
+    }
+}
+
+// GetAllDeclarations
+async function getAllDeclarations(call, callback) {
+    try {
+        const declarations = await declService.getAllDeclarations();
+        callback(null, { declarations });
+    } catch (err) {
+        callback({ code: grpc.status.INTERNAL, message: err.message });
+    }
+}
+
+
 //  ALERTE HANDLERS
 // CreateAlerte
 async function createAlerte(call, callback) {
@@ -140,16 +171,22 @@ async function getAlertes(call, callback) {
     }
 }
 
+// GetAllAlertes
+async function getAllAlertes(call, callback) {
+    try {
+        const alertes = await alerteService.getAllAlertes();
+        callback(null, {alertes});
+    } catch (err) {
+        callback({code: grpc.status.INTERNAL, message: err.message});
+    }
+
+}
+
 module.exports = {
-    createInvoice,
-    signInvoice,
-    getInvoice,
-    getClientInvoices,
-    createDeclaration,
-    validateDeclaration,
-    getDeclaration,
-    createAlerte,
-    getAlertes,
+    createInvoice, signInvoice, getInvoice, getClientInvoices, getAllInvoices,
+    createDeclaration, validateDeclaration, getDeclaration,
+    getClientDeclarations, getAllDeclarations,
+    createAlerte, getAlertes, getAllAlertes,
 };
 
 

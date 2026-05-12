@@ -40,17 +40,21 @@ function buildServer() {
         signInvoice:       handlers.signInvoice,
         getInvoice:        handlers.getInvoice,
         getClientInvoices: handlers.getClientInvoices,
+        getAllInvoices:     handlers.getAllInvoices,
     });
 
     server.addService(declarationPkg.DeclarationService.service, {
         createDeclaration:   handlers.createDeclaration,
         validateDeclaration: handlers.validateDeclaration,
         getDeclaration:      handlers.getDeclaration,
+        getClientDeclarations: handlers.getClientDeclarations,
+        getAllDeclarations:     handlers.getAllDeclarations,
     });
 
     server.addService(alertePkg.AlerteService.service, {
         createAlerte: handlers.createAlerte,
         getAlertes:   handlers.getAlertes,
+        getAllAlertes:  handlers.getAllAlertes,
     });
 
     return server;

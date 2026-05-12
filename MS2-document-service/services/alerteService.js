@@ -43,4 +43,12 @@ async function getAlertes({ client_id, unread_only }) {
     return docs.map(d => d.toJSON());
 }
 
-module.exports = { createAlerte, getAlertes };
+async function getAllAlertes() {
+    const db   = await initDatabase();
+    const docs = await db.alertes.find({
+        sort: [{ created_at: 'desc' }],
+    }).exec();
+    return docs.map(d => ({ ...d._data }));
+}
+
+module.exports = { createAlerte, getAlertes, getAllAlertes };
