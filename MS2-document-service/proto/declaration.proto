@@ -1,24 +1,23 @@
 syntax = "proto3";
-
 import "common.proto";
 package declaration;
 
-//  ENTITÉ PRINCIPALE
+// ENTITÉ PRINCIPALE
 message Declaration {
   string id           = 1;
   string client_id    = 2;
-  string client_nom   = 3;  // dénormalisé depuis MS1
+  string client_nom   = 3;
   string comptable_id = 4;
   string type         = 5;  // TVA | IS | IRPP | CNSS
-  string periode      = 6;  // ex: "2026-Q1" | "2026-05"
+  string periode      = 6;
   double montant      = 7;
   string statut       = 8;  // brouillon | soumise | validee
-  string validated_by = 9;  // comptable_id validateur
-  string validated_at = 10; // timestamp ISO8601
+  string validated_by = 9;
+  string validated_at = 10;
   string created_at   = 11;
 }
 
-//  REQUESTS
+// REQUESTS
 message CreateDeclarationRequest {
   string client_id    = 1;
   string client_nom   = 2;
@@ -26,6 +25,16 @@ message CreateDeclarationRequest {
   string type         = 4;
   string periode      = 5;
   double montant      = 6;
+}
+
+message UpdateDeclarationRequest {
+  string declaration_id = 1;
+  double montant        = 2;
+  string periode        = 3;
+}
+
+message DeleteDeclarationRequest {
+  string declaration_id = 1;
 }
 
 message ValidateDeclarationRequest {
@@ -37,7 +46,11 @@ message GetDeclarationRequest {
   string id = 1;
 }
 
-//  RESPONSES
+message GetClientDeclarationsRequest {
+  string client_id = 1;
+}
+
+//RESPONSES
 message DeclarationResponse {
   Declaration declaration = 1;
 }
@@ -46,11 +59,18 @@ message DeclarationsListResponse {
   repeated Declaration declarations = 1;
 }
 
-//  SERVICE
+message DeleteResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+//SERVICE
 service DeclarationService {
-  rpc CreateDeclaration   (CreateDeclarationRequest)   returns (DeclarationResponse);
-  rpc ValidateDeclaration (ValidateDeclarationRequest) returns (DeclarationResponse);
-  rpc GetDeclaration      (GetDeclarationRequest)      returns (DeclarationResponse);
-  rpc GetClientDeclarations (GetDeclarationRequest) returns (DeclarationsListResponse);
-  rpc GetAllDeclarations       (common.EmptyRequest)                    returns (DeclarationsListResponse);
+  rpc CreateDeclaration     (CreateDeclarationRequest)     returns (DeclarationResponse);
+  rpc UpdateDeclaration     (UpdateDeclarationRequest)     returns (DeclarationResponse);
+  rpc DeleteDeclaration     (DeleteDeclarationRequest)     returns (DeleteResponse);
+  rpc ValidateDeclaration   (ValidateDeclarationRequest)   returns (DeclarationResponse);
+  rpc GetDeclaration        (GetDeclarationRequest)        returns (DeclarationResponse);
+  rpc GetClientDeclarations (GetClientDeclarationsRequest) returns (DeclarationsListResponse);
+  rpc GetAllDeclarations    (common.EmptyRequest)          returns (DeclarationsListResponse);
 }

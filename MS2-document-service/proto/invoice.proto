@@ -38,6 +38,17 @@ message SignInvoiceRequest {
   string comptable_id  = 2;
 }
 
+message UpdateInvoiceRequest {
+  string invoice_id   = 1;
+  double montant_ht   = 2;
+  double tva_rate     = 3;
+  string details_json = 4;
+}
+
+message DeleteInvoiceRequest {
+  string invoice_id = 1;
+}
+
 message GetInvoiceRequest {
   string id = 1;
 }
@@ -61,12 +72,19 @@ message SignResponse {
   string signed_at      = 3;
 }
 
+message DeleteResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
 //  SERVICE
 service InvoiceService {
   rpc CreateInvoice     (CreateInvoiceRequest)     returns (InvoiceResponse);
+  rpc UpdateInvoice     (UpdateInvoiceRequest)     returns (InvoiceResponse);
+  rpc DeleteInvoice     (DeleteInvoiceRequest)     returns (DeleteResponse);
   rpc SignInvoice       (SignInvoiceRequest)        returns (SignResponse);
   rpc GetInvoice        (GetInvoiceRequest)         returns (InvoiceResponse);
   rpc GetClientInvoices (GetClientInvoicesRequest)  returns (InvoicesListResponse);
-  rpc GetAllInvoices    (common.EmptyRequest)              returns (InvoicesListResponse);
+  rpc GetAllInvoices    (common.EmptyRequest)       returns (InvoicesListResponse);
 }
 
