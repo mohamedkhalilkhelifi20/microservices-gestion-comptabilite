@@ -43,4 +43,5 @@ message AlertesListResponse {
 service AlerteService {
   rpc CreateAlerte (CreateAlerteRequest) returns (AlerteResponse);
   rpc GetAlertes   (GetAlertesRequest)   returns (AlertesListResponse);
+  rpc GetAllAlertes  (common.EmptyRequest)        returns (AlertesListResponse);
 }

@@ -51,4 +51,6 @@ service DeclarationService {
   rpc CreateDeclaration   (CreateDeclarationRequest)   returns (DeclarationResponse);
   rpc ValidateDeclaration (ValidateDeclarationRequest) returns (DeclarationResponse);
   rpc GetDeclaration      (GetDeclarationRequest)      returns (DeclarationResponse);
+  rpc GetClientDeclarations (GetDeclarationRequest) returns (DeclarationsListResponse);
+  rpc GetAllDeclarations       (common.EmptyRequest)                    returns (DeclarationsListResponse);
 }

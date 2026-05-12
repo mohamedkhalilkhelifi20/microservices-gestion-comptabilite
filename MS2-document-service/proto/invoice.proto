@@ -67,5 +67,6 @@ service InvoiceService {
   rpc SignInvoice       (SignInvoiceRequest)        returns (SignResponse);
   rpc GetInvoice        (GetInvoiceRequest)         returns (InvoiceResponse);
   rpc GetClientInvoices (GetClientInvoicesRequest)  returns (InvoicesListResponse);
+  rpc GetAllInvoices    (common.EmptyRequest)              returns (InvoicesListResponse);
 }
 
