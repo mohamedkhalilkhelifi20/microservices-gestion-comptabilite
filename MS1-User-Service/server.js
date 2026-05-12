@@ -16,7 +16,7 @@ const PORT      = process.env.MS1_PORT || '50051';
 const PROTO_DIR = path.join(__dirname, 'proto');
 
 const LOADER_OPTIONS = {
-    keepCase:    false,
+    keepCase:    true,
     longs:       String,
     enums:       String,
     defaults:    true,
@@ -71,7 +71,7 @@ function buildServer() {
 }
 
 async function start() {
-    await initDatabase();  // ✅ await DANS une fonction async
+    await initDatabase();
 
     const server = buildServer();
 

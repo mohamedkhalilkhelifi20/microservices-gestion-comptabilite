@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+import "common.proto";
+package declaration;
+
+//  ENTITÉ PRINCIPALE
+message Declaration {
+  string id           = 1;
+  string client_id    = 2;
+  string client_nom   = 3;  // dénormalisé depuis MS1
+  string comptable_id = 4;
+  string type         = 5;  // TVA | IS | IRPP | CNSS
+  string periode      = 6;  // ex: "2026-Q1" | "2026-05"
+  double montant      = 7;
+  string statut       = 8;  // brouillon | soumise | validee
+  string validated_by = 9;  // comptable_id validateur
+  string validated_at = 10; // timestamp ISO8601
+  string created_at   = 11;
+}
+
+//  REQUESTS
+message CreateDeclarationRequest {
+  string client_id    = 1;
+  string client_nom   = 2;
+  string comptable_id = 3;
+  string type         = 4;
+  string periode      = 5;
+  double montant      = 6;
+}
+
+message ValidateDeclarationRequest {
+  string declaration_id = 1;
+  string comptable_id   = 2;
+}
+
+message GetDeclarationRequest {
+  string id = 1;
+}
+
+//  RESPONSES
+message DeclarationResponse {
+  Declaration declaration = 1;
+}
+
+message DeclarationsListResponse {
+  repeated Declaration declarations = 1;
+}
+
+//  SERVICE
+service DeclarationService {
+  rpc CreateDeclaration   (CreateDeclarationRequest)   returns (DeclarationResponse);
+  rpc ValidateDeclaration (ValidateDeclarationRequest) returns (DeclarationResponse);
+  rpc GetDeclaration      (GetDeclarationRequest)      returns (DeclarationResponse);
+}

@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+import "common.proto";
+package alerte;
+
+//  ENTITÉ PRINCIPALE
+message Alerte {
+  string id          = 1;
+  string client_id   = 2;
+  string type        = 3;  // echeance | impayee | anomalie
+  string message     = 4;
+  string severity    = 5;  // info | warning | critical
+  string entity_id   = 6;  // facture_id ou declaration_id concerné
+  string entity_type = 7;  // facture | declaration
+  bool   is_read     = 8;
+  string created_at  = 9;
+}
+
+//  REQUESTS
+message CreateAlerteRequest {
+  string client_id   = 1;
+  string type        = 2;
+  string message     = 3;
+  string severity    = 4;
+  string entity_id   = 5;
+  string entity_type = 6;
+}
+
+message GetAlertesRequest {
+  string client_id = 1;
+}
+
+//  RESPONSES
+message AlerteResponse {
+  Alerte alerte = 1;
+}
+
+message AlertesListResponse {
+  repeated Alerte alertes = 1;
+}
+
+//  SERVICE
+service AlerteService {
+  rpc CreateAlerte (CreateAlerteRequest) returns (AlerteResponse);
+  rpc GetAlertes   (GetAlertesRequest)   returns (AlertesListResponse);
+}

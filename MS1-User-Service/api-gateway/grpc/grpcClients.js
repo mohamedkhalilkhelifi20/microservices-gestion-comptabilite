@@ -8,7 +8,7 @@ const PROTO_DIR = path.join(__dirname, '..', '..', 'proto');
 const MS1_ADDR  = process.env.MS1_ADDR || 'localhost:50051';
 
 const OPTS = {
-    keepCase:    false,
+    keepCase:    true,
     longs:       String,
     enums:       String,
     defaults:    true,
@@ -28,7 +28,6 @@ const comptableClient   = loadClient('comptable.proto',   'comptable',   'Compta
 const clientClient      = loadClient('client.proto',      'client',      'ClientService');
 const assignationClient = loadClient('assignation.proto', 'assignation', 'AssignationService');
 
-// Helper : convertir callback gRPC → Promise
 function call(client, method, request = {}) {
     return new Promise((resolve, reject) => {
         client[method](request, (err, response) => {
