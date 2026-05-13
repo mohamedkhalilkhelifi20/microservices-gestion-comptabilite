@@ -1,12 +1,12 @@
 'use strict';
 
-const path        = require('path');
-const grpc        = require('@grpc/grpc-js');
+const path = require('path');
+const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
-const initDatabase             = require('./db/database');
+const initDatabase = require('./db/database');
 const { disconnect: kafkaOff } = require('./kafka/producer');
-const handlers                 = require('./handlers/documentHandlers');
+const handlers= require('./handlers/documentHandlers');
 
 const PORT      = process.env.MS2_PORT || '50052';
 const PROTO_DIR = path.join(__dirname, 'proto');
@@ -37,6 +37,8 @@ function buildServer() {
 
     server.addService(invoicePkg.InvoiceService.service, {
         createInvoice:     handlers.createInvoice,
+        updateInvoice:     handlers.updateInvoice,
+        deleteInvoice:     handlers.deleteInvoice,
         signInvoice:       handlers.signInvoice,
         getInvoice:        handlers.getInvoice,
         getClientInvoices: handlers.getClientInvoices,
@@ -44,9 +46,11 @@ function buildServer() {
     });
 
     server.addService(declarationPkg.DeclarationService.service, {
-        createDeclaration:   handlers.createDeclaration,
-        validateDeclaration: handlers.validateDeclaration,
-        getDeclaration:      handlers.getDeclaration,
+        createDeclaration:     handlers.createDeclaration,
+        updateDeclaration:     handlers.updateDeclaration,
+        deleteDeclaration:     handlers.deleteDeclaration,
+        validateDeclaration:   handlers.validateDeclaration,
+        getDeclaration:        handlers.getDeclaration,
         getClientDeclarations: handlers.getClientDeclarations,
         getAllDeclarations:     handlers.getAllDeclarations,
     });
@@ -54,7 +58,7 @@ function buildServer() {
     server.addService(alertePkg.AlerteService.service, {
         createAlerte: handlers.createAlerte,
         getAlertes:   handlers.getAlertes,
-        getAllAlertes:  handlers.getAllAlertes,
+        getAllAlertes: handlers.getAllAlertes,
     });
 
     return server;
