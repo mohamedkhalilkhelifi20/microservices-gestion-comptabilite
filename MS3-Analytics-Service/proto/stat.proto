@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+import "common.proto";
+package stat;
+
+//  ENTITÉ PRINCIPALE
+message Stat {
+  string id            = 1;
+  string client_id     = 2;
+  string periode       = 3;  // ex: 2025-01
+  double chiffre_affaires = 4;
+  double total_charges    = 5;
+  double tva_nette        = 6;
+  double resultat_net     = 7;
+  int32  nb_factures      = 8;
+  int32  nb_declarations  = 9;
+  string created_at    = 10;
+}
+
+//  REQUESTS
+message CreateStatRequest {
+  string client_id        = 1;
+  string periode          = 2;
+  double chiffre_affaires = 3;
+  double total_charges    = 4;
+  double tva_nette        = 5;
+  double resultat_net     = 6;
+  int32  nb_factures      = 7;
+  int32  nb_declarations  = 8;
+}
+
+message GetStatRequest {
+  string id = 1;
+}
+
+message GetStatsByClientRequest {
+  string client_id = 1;
+}
+
+//  RESPONSES
+message StatResponse {
+  Stat stat = 1;
+}
+
+message StatsListResponse {
+  repeated Stat stats = 1;
+}
+
+//  SERVICE
+service StatService {
+  rpc CreateStat          (CreateStatRequest)          returns (StatResponse);
+  rpc GetStat             (GetStatRequest)             returns (StatResponse);
+  rpc GetStatsByClient    (GetStatsByClientRequest)    returns (StatsListResponse);
+  rpc GetAllStats         (common.EmptyRequest)        returns (StatsListResponse);
+}
+

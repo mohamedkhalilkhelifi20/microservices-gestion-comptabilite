@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+import "common.proto";
+package report;
+
+//  ENTITÉ PRINCIPALE
+message Report {
+  string id          = 1;
+  string client_id   = 2;
+  string type        = 3;  // financier | fiscal | tresorerie
+  string periode     = 4;  // ex: 2025-Q1 | 2025-01
+  string statut      = 5;  // genere | valide | archive
+  string contenu     = 6;  // JSON stringifié des données du rapport
+  string created_at  = 7;
+}
+
+//  REQUESTS
+message CreateReportRequest {
+  string client_id  = 1;
+  string type       = 2;
+  string periode    = 3;
+  string contenu    = 4;
+}
+
+message GetReportRequest {
+  string id = 1;
+}
+
+message GetReportsByClientRequest {
+  string client_id = 1;
+}
+
+message UpdateReportRequest {
+  string id      = 1;
+  string statut  = 2;  // genere | valide | archive
+  string contenu = 3;
+}
+
+message DeleteReportRequest {
+  string id = 1;
+}
+
+//  RESPONSES
+message ReportResponse {
+  Report report = 1;
+}
+
+message ReportsListResponse {
+  repeated Report reports = 1;
+}
+
+message DeleteReportResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+//  SERVICE
+service ReportService {
+  rpc CreateReport        (CreateReportRequest)       returns (ReportResponse);
+  rpc GetReport           (GetReportRequest)          returns (ReportResponse);
+  rpc GetReportsByClient  (GetReportsByClientRequest) returns (ReportsListResponse);
+  rpc GetAllReports       (common.EmptyRequest)       returns (ReportsListResponse);
+  rpc UpdateReport        (UpdateReportRequest)       returns (ReportResponse);
+  rpc DeleteReport        (DeleteReportRequest)       returns (DeleteReportResponse);
+}

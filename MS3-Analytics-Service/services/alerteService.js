@@ -1,8 +1,8 @@
 'use strict';
 
 const { v4: uuidv4 } = require('uuid');
-const initDatabase   = require('../db/database');
-const { verifyClientExists } = require('../grpc/ms1Client');
+const initDatabase   = require('../../MS2-document-service/db/database');
+const { verifyClientExists } = require('../../MS2-document-service/grpc/ms1Client');
 
 //CreateAlerte
 async function createAlerte({ client_id, type, message, severity,
