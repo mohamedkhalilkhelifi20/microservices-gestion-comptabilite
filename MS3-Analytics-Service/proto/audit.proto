@@ -5,26 +5,17 @@ package audit;
 
 //  ENTITÉ PRINCIPALE
 message AuditLog {
-  string id          = 1;
-  string client_id   = 2;
-  string action      = 3;  // create | update | delete | submit | validate
-  string entity_type = 4;  // facture | declaration | alerte | report
-  string entity_id   = 5;
-  string performed_by = 6; // user_id ou system
-  string details     = 7;  // JSON stringifié des changements
-  string created_at  = 8;
+  string id           = 1;
+  string client_id    = 2;
+  string action       = 3;  // create | update | delete | submit | validate
+  string entity_type  = 4;  // facture | declaration | alerte | report
+  string entity_id    = 5;
+  string performed_by = 6;  // user_id ou system
+  string details      = 7;  // JSON stringifié des changements
+  string created_at   = 8;
 }
 
 //  REQUESTS
-message CreateAuditLogRequest {
-  string client_id    = 1;
-  string action       = 2;
-  string entity_type  = 3;
-  string entity_id    = 4;
-  string performed_by = 5;
-  string details      = 6;
-}
-
 message GetAuditLogsByClientRequest {
   string client_id = 1;
 }
@@ -43,10 +34,9 @@ message AuditLogsListResponse {
   repeated AuditLog audit_logs = 1;
 }
 
-//  SERVICE
+//  SERVICE — lecture uniquement (createAuditLog géré par Kafka consumer)
 service AuditService {
-  rpc CreateAuditLog            (CreateAuditLogRequest)          returns (AuditLogResponse);
-  rpc GetAuditLogsByClient      (GetAuditLogsByClientRequest)    returns (AuditLogsListResponse);
-  rpc GetAuditLogsByEntity      (GetAuditLogsByEntityRequest)    returns (AuditLogsListResponse);
-  rpc GetAllAuditLogs           (common.EmptyRequest)            returns (AuditLogsListResponse);
+  rpc GetAuditLogsByClient  (GetAuditLogsByClientRequest) returns (AuditLogsListResponse);
+  rpc GetAuditLogsByEntity  (GetAuditLogsByEntityRequest) returns (AuditLogsListResponse);
+  rpc GetAllAuditLogs       (common.EmptyRequest)         returns (AuditLogsListResponse);
 }
