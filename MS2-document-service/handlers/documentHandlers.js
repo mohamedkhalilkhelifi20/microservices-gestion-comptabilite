@@ -3,7 +3,6 @@
 const grpc             = require('@grpc/grpc-js');
 const invoiceService   = require('../services/invoiceService');
 const declService      = require('../services/declarationService');
-const alerteService    = require('../services/alerteService');
 const kafka            = require('../kafka/producer');
 
 //Helper
@@ -176,41 +175,10 @@ async function getAllDeclarations(call, callback) {
     }
 }
 
-//  ALERTE HANDLERS
-async function createAlerte(call, callback) {
-    try {
-        const alerte = await alerteService.createAlerte(call.request);
-        kafka.publishAlerteCreated(alerte).catch(err =>
-            console.error('[MS2][Kafka] Erreur alerte.created :', err.message)
-        );
-        callback(null, { alerte });
-    } catch (err) {
-        callback({ code: grpcError(err), message: err.message });
-    }
-}
-
-async function getAlertes(call, callback) {
-    try {
-        const alertes = await alerteService.getAlertes(call.request);
-        callback(null, { alertes });
-    } catch (err) {
-        callback({ code: grpc.status.INTERNAL, message: err.message });
-    }
-}
-
-async function getAllAlertes(call, callback) {
-    try {
-        const alertes = await alerteService.getAllAlertes();
-        callback(null, { alertes });
-    } catch (err) {
-        callback({ code: grpc.status.INTERNAL, message: err.message });
-    }
-}
 
 module.exports = {
     createInvoice, updateInvoice, deleteInvoice,
     signInvoice, getInvoice, getClientInvoices, getAllInvoices,
     createDeclaration, updateDeclaration, deleteDeclaration,
     validateDeclaration, getDeclaration, getClientDeclarations, getAllDeclarations,
-    createAlerte, getAlertes, getAllAlertes,
 };

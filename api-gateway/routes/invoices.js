@@ -1,7 +1,7 @@
 'use strict';
 
 const { Router } = require('express');
-const { invoiceClient, declarationClient, alerteClient, call } = require('../grpc/grpcClients');
+const { invoiceClient, declarationClient, call } = require('../grpc/grpcClients');
 
 const router = Router();
 
@@ -90,41 +90,6 @@ router.delete('/declarations/:id', async (req, res) => {
     } catch (err) {
         const code = err.code === 5 ? 404 : err.code === 9 ? 400 : 500;
         res.status(code).json({ error: err.message });
-    }
-});
-
-
-//  ALERTES
-// POST /api/invoices/alertes
-router.post('/alertes', async (req, res) => {
-    try {
-        const result = await call(alerteClient, 'createAlerte', req.body);
-        res.status(201).json(result.alerte);
-    } catch (err) {
-        const code = err.code === 5 ? 404 : 500;
-        res.status(code).json({ error: err.message });
-    }
-});
-
-// GET /api/invoices/alertes
-router.get('/alertes', async (req, res) => {
-    try {
-        const result = await call(alerteClient, 'getAllAlertes', {});
-        res.json(result.alertes);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
-// GET /api/invoices/alertes/client/:client_id
-router.get('/alertes/client/:client_id', async (req, res) => {
-    try {
-        const result = await call(alerteClient, 'getAlertes', {
-            client_id: req.params.client_id,
-        });
-        res.json(result.alertes);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
     }
 });
 

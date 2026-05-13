@@ -6,7 +6,7 @@ const protoLoader = require('@grpc/proto-loader');
 
 const initDatabase              = require('./db/database');
 const { startConsumer, disconnect: kafkaOff } = require('./kafka/consumer');
-const handler                   = require('./handlers/handler');
+const handler                   = require('./handlers/analyticsHandlers');
 
 const PORT      = process.env.MS3_PORT || '50053';
 const PROTO_DIR = path.join(__dirname, 'proto');

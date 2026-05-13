@@ -59,25 +59,6 @@ const declarationSchema = {
         'type', 'periode', 'montant', 'statut', 'created_at'],
 };
 
-const alerteSchema = {
-    version: 0,
-    primaryKey: 'id',
-    type: 'object',
-    properties: {
-        id:   { type: 'string', maxLength: 36 },
-        client_id:  { type: 'string' },
-        type: { type: 'string' },
-        message: { type: 'string' },
-        severity: { type: 'string' },
-        entity_id: { type: 'string' },
-        entity_type: { type: 'string' },
-        is_read:{ type: 'boolean', default: false },
-        created_at:{ type: 'string' },
-    },
-    required: ['id', 'client_id', 'type', 'message',
-        'severity', 'entity_id', 'entity_type', 'created_at'],
-};
-
 // ── Singleton
 
 let dbInstance = null;

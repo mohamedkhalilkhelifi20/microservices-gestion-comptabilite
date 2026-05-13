@@ -28,7 +28,6 @@ async function disconnect() {
 
 // ── invoice.created
 // Déclenché : quand une nouvelle facture est créée (CreateInvoice)
-// Consommateur : MS3 — met à jour ca_mensuel + factures_count dans dashboard
 async function publishInvoiceCreated(invoice) {
     await connect();
     await producer.send({
@@ -140,37 +139,11 @@ async function publishDeclarationValidated(declaration) {
     console.log(`[MS2][Kafka] declaration.validated publié → ${declaration.id}`);
 }
 
-// ── alerte.created
-// Déclenché : quand une alerte fiscale est créée (CreateAlerte)
-// Consommateur : MS3 — push notification urgente + incrémente alertes_actives
-async function publishAlerteCreated(alerte) {
-    await connect();
-    await producer.send({
-        topic:    'alerte.created',
-        messages: [{
-            key:   alerte.client_id,
-            value: JSON.stringify({
-                event:       'alerte.created',
-                alerte_id:   alerte.id,
-                client_id:   alerte.client_id,
-                type:        alerte.type,
-                severity:    alerte.severity,
-                message:     alerte.message,
-                entity_id:   alerte.entity_id,
-                entity_type: alerte.entity_type,
-                timestamp:   new Date().toISOString(),
-            }),
-        }],
-    });
-    console.log(`[MS2][Kafka] alerte.created publié → ${alerte.id} (${alerte.severity})`);
-}
-
 module.exports = {
     publishInvoiceCreated,
     publishInvoiceSigned,
     publishInvoicePaid,
     publishDeclarationSubmitted,
     publishDeclarationValidated,
-    publishAlerteCreated,
     disconnect,
 };

@@ -28,9 +28,6 @@ const declarationPkg = grpc.loadPackageDefinition(
     protoLoader.loadSync(path.join(PROTO_DIR, 'declaration.proto'), LOADER_OPTIONS)
 ).declaration;
 
-const alertePkg = grpc.loadPackageDefinition(
-    protoLoader.loadSync(path.join(PROTO_DIR, 'alerte.proto'), LOADER_OPTIONS)
-).alerte;
 
 function buildServer() {
     const server = new grpc.Server();
@@ -53,12 +50,6 @@ function buildServer() {
         getDeclaration:        handlers.getDeclaration,
         getClientDeclarations: handlers.getClientDeclarations,
         getAllDeclarations:     handlers.getAllDeclarations,
-    });
-
-    server.addService(alertePkg.AlerteService.service, {
-        createAlerte: handlers.createAlerte,
-        getAlertes:   handlers.getAlertes,
-        getAllAlertes: handlers.getAllAlertes,
     });
 
     return server;

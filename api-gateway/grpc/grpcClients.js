@@ -6,8 +6,11 @@ const protoLoader = require('@grpc/proto-loader');
 
 const PROTO_MS1 = path.join(__dirname, '..', '..', 'ms1-user-service',     'proto');
 const PROTO_MS2 = path.join(__dirname, '..', '..', 'ms2-document-service', 'proto');
+const PROTO_MS3 = path.join(__dirname, '..', '..', 'ms3-analytics-service','proto');
+
 const MS1_ADDR  = process.env.MS1_ADDR || 'localhost:50051';
 const MS2_ADDR  = process.env.MS2_ADDR || 'localhost:50052';
+const MS3_ADDR = process.env.MS3_ADDR || 'localhost:50053';
 
 function loadClient(protoDir, protoFile, packageName, serviceName, addr) {
     const pkg = grpc.loadPackageDefinition(
@@ -34,6 +37,12 @@ const invoiceClient = loadClient(PROTO_MS2,'invoice.proto','invoice','InvoiceSer
 const declarationClient = loadClient(PROTO_MS2,'declaration.proto', 'declaration', 'DeclarationService', MS2_ADDR);
 const alerteClient= loadClient(PROTO_MS2,'alerte.proto', 'alerte', 'AlerteService', MS2_ADDR);
 
+// MS3
+const alerteMS3Client   = loadClient(PROTO_MS3,'alerte.proto','alerte', 'AlerteService',MS3_ADDR);
+const reportClient      = loadClient(PROTO_MS3, 'report.proto','report','ReportService',MS3_ADDR);
+const statClient        = loadClient(PROTO_MS3, 'stat.proto', 'stat', 'StatService', MS3_ADDR);
+const auditClient       = loadClient(PROTO_MS3, 'audit.proto',  'audit','AuditService', MS3_ADDR);
+
 //Helper générique
 function call(client, method, request = {}) {
     return new Promise((resolve, reject) => {
@@ -47,6 +56,7 @@ function call(client, method, request = {}) {
 module.exports = {
     cabinetClient, comptableClient, clientClient, assignationClient,
     invoiceClient, declarationClient, alerteClient,
+    alerteMS3Client, reportClient, statClient, auditClient,
     call,
 };
 

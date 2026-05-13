@@ -1,7 +1,4 @@
-### ══════════════════════════════════════════════════
 ###  MS1 — Identity Service
-### ══════════════════════════════════════════════════
-
 type Cabinet {
     id:         ID!
     nom:        String!
@@ -44,10 +41,7 @@ type Assignation {
     statut:       String
 }
 
-### ══════════════════════════════════════════════════
 ###  MS2 — Document Service
-### ══════════════════════════════════════════════════
-
 type Invoice {
     id:             ID!
     type:           String!
@@ -87,30 +81,71 @@ type Declaration {
     created_at:   String!
 }
 
+type DeleteResponse {
+    success: Boolean!
+    message: String!
+}
+
+### Analytics Service
+
 type Alerte {
     id:          ID!
     client_id:   ID!
     type:        String!
     message:     String!
     severity:    String!
-    entity_id:   ID!
+    entity_id:   String!
     entity_type: String!
     is_read:     Boolean!
     created_at:  String!
 }
 
-type DeleteResponse {
-    success: Boolean!
-    message: String!
+type Report {
+    id:         ID!
+    client_id:  ID!
+    type:       String!
+    periode:    String!
+    statut:     String!
+    contenu:    String!
+    created_at: String!
 }
 
-### ══════════════════════════════════════════════════
-###  QUERIES
-### ══════════════════════════════════════════════════
+type Stat {
+    id:               ID!
+    client_id:        ID!
+    periode:          String!
+    chiffre_affaires: Float!
+    total_charges:    Float!
+    tva_nette:        Float!
+    resultat_net:     Float!
+    nb_factures:      Int!
+    nb_declarations:  Int!
+    created_at:       String!
+}
 
+type AuditLog {
+    id:           ID!
+    client_id:    ID!
+    action:       String!
+    entity_type:  String!
+    entity_id:    String!
+    performed_by: String!
+    details:      String!
+    created_at:   String!
+}
+
+type Dashboard {
+    client_id:  ID!
+    stats:      [Stat]
+    alertes:    [Alerte]
+    reports:    [Report]
+    audit_logs: [AuditLog]
+}
+
+###  QUERIES
 type Query {
 
-    # ── MS1 ───────────────────────────────────────
+    #MS1
     cabinet(id: ID!):                            Cabinet
     cabinets:                                    [Cabinet]
 
@@ -123,7 +158,7 @@ type Query {
 
     assignationsByClient(client_id: ID!):        [Assignation]
 
-    # ── MS2 ───────────────────────────────────────
+    # MS2
     invoice(id: ID!):                            Invoice
     invoices:                                    [Invoice]
     invoicesByClient(client_id: ID!):            [Invoice]
@@ -132,17 +167,34 @@ type Query {
     declarations:                                [Declaration]
     declarationsByClient(client_id: ID!):        [Declaration]
 
+    #Alertes
     alertes:                                     [Alerte]
     alertesByClient(client_id: ID!):             [Alerte]
+
+    # Reports
+    report(id: ID!):                             Report
+    reports:                                     [Report]
+    reportsByClient(client_id: ID!):             [Report]
+
+    #Stats
+    stat(id: ID!):                               Stat
+    stats:                                       [Stat]
+    statsByClient(client_id: ID!):               [Stat]
+
+    #Audit
+    auditLogs:                                   [AuditLog]
+    auditLogsByClient(client_id: ID!):           [AuditLog]
+    auditLogsByEntity(entity_type: String!, entity_id: ID!): [AuditLog]
+
+    # Dashboard
+    dashboard(client_id: ID!):                   Dashboard
 }
 
-### ══════════════════════════════════════════════════
-###  MUTATIONS
-### ══════════════════════════════════════════════════
 
+###  MUTATIONS
 type Mutation {
 
-    # ── MS1 — Cabinet ─────────────────────────────
+    #Cabinet
     createCabinet(
         nom:       String!
         adresse:   String
@@ -150,7 +202,7 @@ type Mutation {
         telephone: String
     ): Cabinet
 
-    # ── MS1 — Comptable ───────────────────────────
+    # Comptable
     createComptable(
         nom:            String!
         email:          String!
@@ -161,7 +213,7 @@ type Mutation {
         numero_licence: String
     ): Comptable
 
-    # ── MS1 — Client ──────────────────────────────
+    # Client
     createClient(
         nom:              String!
         email:            String!
@@ -172,7 +224,7 @@ type Mutation {
         adresse:          String
     ): Client
 
-    # ── MS1 — Assignation ─────────────────────────
+    # Assignation
     assignComptableToClient(
         comptable_id: ID!
         client_id:    ID!
@@ -180,7 +232,7 @@ type Mutation {
         date_debut:   String
     ): Assignation
 
-    # ── MS2 — Invoice ─────────────────────────────
+    #Invoice
     createInvoice(
         type:         String!
         client_id:    ID!
@@ -208,7 +260,7 @@ type Mutation {
         comptable_id: ID!
     ): SignResponse
 
-    # ── MS2 — Declaration ─────────────────────────
+    #Declaration
     createDeclaration(
         client_id:    ID!
         client_nom:   String!
@@ -233,13 +285,32 @@ type Mutation {
         comptable_id:   ID!
     ): Declaration
 
-    # ── MS2 — Alerte ──────────────────────────────
+    #Alerte
     createAlerte(
         client_id:   ID!
         type:        String!
         message:     String!
         severity:    String!
-        entity_id:   ID!
+        entity_id:   String!
         entity_type: String!
     ): Alerte
+
+    # Report
+    createReport(
+        client_id:      ID!
+        type:           String!
+        periode:        String!
+        facture_id:     ID
+        declaration_id: ID
+    ): Report
+
+    updateReport(
+        id:      ID!
+        statut:  String
+        contenu: String
+    ): Report
+
+    deleteReport(
+        id: ID!
+    ): DeleteResponse
 }
