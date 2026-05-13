@@ -11,23 +11,74 @@ function now() {
 
 // Service
 
-async function createReport({ client_id, type, periode, contenu = '{}' }) {
+async function createReport({ client_id, type, periode, facture_id = null, declaration_id = null }) {
     const db = await initDatabase();
 
+    // 1 — Récupérer les données enrichies depuis MS1 et MS2 via gRPC
+    let contenu = {};
+
+    try {
+        // Données client depuis MS1
+        const clientData = await grpcClients.getClient({ id: client_id });
+        contenu.client = {
+            id:       clientData.client.id,
+            nom:      clientData.client.nom,
+            email:    clientData.client.email,
+            matricule_fiscal: clientData.client.matricule_fiscal,
+        };
+    } catch (err) {
+        console.warn(`[MS3][ReportService] getClient MS1 failed: ${err.message}`);
+        contenu.client = { id: client_id };
+    }
+
+    try {
+        // Données facture depuis MS2 si disponible
+        if (facture_id) {
+            const factureData = await grpcClients.getFacture({ id: facture_id });
+            contenu.facture = {
+                id:          factureData.facture.id,
+                numero:      factureData.facture.numero,
+                montant_ht:  factureData.facture.montant_ht,
+                tva_montant: factureData.facture.tva_montant,
+                montant_ttc: factureData.facture.montant_ttc,
+                statut:      factureData.facture.statut,
+            };
+        }
+    } catch (err) {
+        console.warn(`[MS3][ReportService] getFacture MS2 failed: ${err.message}`);
+    }
+
+    try {
+        // Données déclaration depuis MS2 si disponible
+        if (declaration_id) {
+            const declarationData = await grpcClients.getDeclaration({ id: declaration_id });
+            contenu.declaration = {
+                id:      declarationData.declaration.id,
+                type:    declarationData.declaration.type,
+                periode: declarationData.declaration.periode,
+                montant: declarationData.declaration.montant,
+                statut:  declarationData.declaration.statut,
+            };
+        }
+    } catch (err) {
+        console.warn(`[MS3][ReportService] getDeclaration MS2 failed: ${err.message}`);
+    }
+
+    // 2 — Créer le rapport avec contenu enrichi
     const doc = {
         id:         uuidv4(),
         client_id,
         type,
         periode,
         statut:     'genere',
-        contenu,
+        contenu:    JSON.stringify(contenu),
         created_at: now(),
     };
 
     await db.reports.insert(doc);
 
     const rxDoc = await db.reports.findOne(doc.id).exec();
-    console.log(`[MS3][ReportService] Rapport créé → ${doc.id} | type: ${type} | periode: ${periode}`);
+    console.log(`[MS3][ReportService] Rapport créé → ${doc.id} | type: ${type} | periode: ${periode} | client: ${client_id}`);
     return rxDoc.toJSON();
 }
 
