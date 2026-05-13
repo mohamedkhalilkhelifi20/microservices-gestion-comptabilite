@@ -1,7 +1,6 @@
-# Types
-
+###  MS1 — Identity Service
 type Cabinet {
-    id:         String!
+    id:         ID!
     nom:        String!
     adresse:    String
     email:      String!
@@ -10,69 +9,129 @@ type Cabinet {
 }
 
 type Comptable {
-    id:             String!
+    id:             ID!
     nom:            String!
     email:          String!
     telephone:      String
     specialite:     String!
-    cabinet_id:     String!
-    cabinet_nom:    String
+    cabinet_id:     ID!
     ordre_ordinal:  String
     numero_licence: String
     created_at:     String
 }
 
 type Client {
-    id:               String!
+    id:               ID!
     nom:              String!
     email:            String!
     telephone:        String
     type:             String!
     matricule_fiscal: String
-    cabinet_id:       String!
-    cabinet_nom:      String
+    cabinet_id:       ID!
     adresse:          String
     created_at:       String
 }
 
 type Assignation {
-    id:           String!
-    comptable_id: String!
-    client_id:    String!
+    id:           ID!
+    comptable_id: ID!
+    client_id:    ID!
     specialite:   String
     date_debut:   String
     statut:       String
 }
 
-type AssignResponse {
+
+###  MS2 — Document Service
+type Invoice {
+    id:             ID!
+    type:           String!
+    numero:         String!
+    client_id:      ID!
+    client_nom:     String!
+    comptable_id:   ID!
+    montant_ht:     Float!
+    tva_rate:       Float!
+    tva_montant:    Float!
+    montant_ttc:    Float!
+    statut:         String!
+    signature_hash: String
+    signed_by:      String
+    signed_at:      String
+    details_json:   String
+    created_at:     String!
+}
+
+type SignResponse {
+    success:        Boolean!
+    signature_hash: String!
+    signed_at:      String!
+}
+
+type Declaration {
+    id:           ID!
+    client_id:    ID!
+    client_nom:   String!
+    comptable_id: ID!
+    type:         String!
+    periode:      String!
+    montant:      Float!
+    statut:       String!
+    validated_by: String
+    validated_at: String
+    created_at:   String!
+}
+
+type Alerte {
+    id:          ID!
+    client_id:   ID!
+    type:        String!
+    message:     String!
+    severity:    String!
+    entity_id:   ID!
+    entity_type: String!
+    is_read:     Boolean!
+    created_at:  String!
+}
+
+type DeleteResponse {
     success: Boolean!
     message: String!
 }
 
-# Queries
-
+###  QUERIES
 type Query {
-    # Cabinet
-    cabinet(id: String!):   Cabinet
-    cabinets:               [Cabinet]
 
-    # Comptable
-    comptable(id: String!):                  Comptable
-    comptables:                              [Comptable]
+    # MS1
+    cabinet(id: ID!):                            Cabinet
+    cabinets:                                    [Cabinet]
+
+    comptable(id: ID!):                          Comptable
+    comptables:                                  [Comptable]
     comptablesBySpecialite(specialite: String!): [Comptable]
 
-    # Client
-    client(id: String!):    Client
-    clients:                [Client]
+    client(id: ID!):                             Client
+    clients:                                     [Client]
 
-    # Assignation
-    assignationsByClient(client_id: String!): [Assignation]
+    assignationsByClient(client_id: ID!):        [Assignation]
+
+    # MS2
+    invoice(id: ID!):                            Invoice
+    invoices:                                    [Invoice]
+    invoicesByClient(client_id: ID!):            [Invoice]
+
+    declaration(id: ID!):                        Declaration
+    declarations:                                [Declaration]
+    declarationsByClient(client_id: ID!):        [Declaration]
+
+    alertes:                                     [Alerte]
+    alertesByClient(client_id: ID!):             [Alerte]
 }
 
-# Mutations
-
+###  MUTATIONS
 type Mutation {
-    # Cabinet
+
+    # ─Cabinet
     createCabinet(
         nom:       String!
         adresse:   String
@@ -86,7 +145,7 @@ type Mutation {
         email:          String!
         telephone:      String
         specialite:     String!
-        cabinet_id:     String!
+        cabinet_id:     ID!
         ordre_ordinal:  String
         numero_licence: String
     ): Comptable
@@ -98,14 +157,77 @@ type Mutation {
         telephone:        String
         type:             String!
         matricule_fiscal: String
-        cabinet_id:       String!
+        cabinet_id:       ID!
         adresse:          String
     ): Client
 
     # Assignation
     assignComptableToClient(
-        comptable_id: String!
-        client_id:    String!
+        comptable_id: ID!
+        client_id:    ID!
         specialite:   String
-    ): AssignResponse
+        date_debut:   String
+    ): Assignation
+
+    #Invoice
+    createInvoice(
+        type:         String!
+        client_id:    ID!
+        client_nom:   String!
+        comptable_id: ID!
+        montant_ht:   Float!
+        tva_rate:     Float!
+        details_json: String
+    ): Invoice
+
+    updateInvoice(
+        invoice_id:   ID!
+        montant_ht:   Float
+        tva_rate:     Float
+        details_json: String
+    ): Invoice
+
+    deleteInvoice(
+        invoice_id: ID!
+    ): DeleteResponse
+
+    signInvoice(
+        invoice_id:   ID!
+        comptable_id: ID!
+    ): SignResponse
+
+    #Declaration
+    createDeclaration(
+        client_id:    ID!
+        client_nom:   String!
+        comptable_id: ID!
+        type:         String!
+        periode:      String!
+        montant:      Float!
+    ): Declaration
+
+    updateDeclaration(
+        declaration_id: ID!
+        montant:        Float
+        periode:        String
+    ): Declaration
+
+    deleteDeclaration(
+        declaration_id: ID!
+    ): DeleteResponse
+
+    validateDeclaration(
+        declaration_id: ID!
+        comptable_id:   ID!
+    ): Declaration
+
+    #Alerte
+    createAlerte(
+        client_id:   ID!
+        type:        String!
+        message:     String!
+        severity:    String!
+        entity_id:   ID!
+        entity_type: String!
+    ): Alerte
 }
