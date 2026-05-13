@@ -38,51 +38,71 @@ function call(client, method, request = {}) {
 
 // ── Vérifier que le client existe dans MS1 ────────────────────────────────
 async function verifyClientExists(client_id) {
+    console.log(`[MS2][MS1Client] verifyClientExists → id: ${client_id} | MS1: ${MS1_ADDR}`);
     try {
         const res = await call(clientClient, 'getClient', { id: client_id });
-        if (!res.client || !res.client.id) {
-            throw new Error(`Client introuvable : ${client_id}`);
+        console.log(`[MS2][MS1Client] getClient réponse :`, JSON.stringify(res));
+
+        if (!res || !res.client || !res.client.id) {
+            throw new Error(`Client introuvable dans MS1 : ${client_id}`);
         }
+        console.log(`[MS2][MS1Client] Client vérifié ✓ → ${res.client.nom}`);
         return res.client;
     } catch (err) {
-        throw new Error(`Client introuvable : ${client_id}`);
+        // Afficher la vraie erreur gRPC — ne pas masquer
+        console.error(`[MS2][MS1Client] ERREUR verifyClientExists :`, err.message, '| code:', err.code);
+        throw new Error(`Vérification client échouée (${err.code || 'ERR'}) : ${err.message}`);
     }
 }
 
 // ── Vérifier que le comptable existe dans MS1 ─────────────────────────────
 async function verifyComptableExists(comptable_id) {
+    console.log(`[MS2][MS1Client] verifyComptableExists → id: ${comptable_id}`);
     try {
         const res = await call(comptableClient, 'getComptable', { id: comptable_id });
-        if (!res.comptable || !res.comptable.id) {
-            throw new Error(`Comptable introuvable : ${comptable_id}`);
+        console.log(`[MS2][MS1Client] getComptable réponse :`, JSON.stringify(res));
+
+        if (!res || !res.comptable || !res.comptable.id) {
+            throw new Error(`Comptable introuvable dans MS1 : ${comptable_id}`);
         }
+        console.log(`[MS2][MS1Client] Comptable vérifié ✓ → ${res.comptable.nom}`);
         return res.comptable;
     } catch (err) {
-        throw new Error(`Comptable introuvable : ${comptable_id}`);
+        console.error(`[MS2][MS1Client] ERREUR verifyComptableExists :`, err.message, '| code:', err.code);
+        throw new Error(`Vérification comptable échouée (${err.code || 'ERR'}) : ${err.message}`);
     }
 }
 
 // ── Vérifier que l'assignation client↔comptable est active dans MS1 ───────
 async function verifyAssignation(client_id, comptable_id) {
+    console.log(`[MS2][MS1Client] verifyAssignation → client: ${client_id} | comptable: ${comptable_id}`);
     try {
         const res = await call(assignationClient, 'getAssignationsByClient', { client_id });
+        console.log(`[MS2][MS1Client] getAssignationsByClient réponse :`, JSON.stringify(res));
+
         const assignations = res.assignations || [];
+        console.log(`[MS2][MS1Client] ${assignations.length} assignation(s) trouvée(s) pour ce client`);
 
         const active = assignations.find(a =>
             a.comptable_id === comptable_id && a.statut === 'actif'
         );
 
         if (!active) {
+            // Afficher toutes les assignations pour debug
+            console.error(`[MS2][MS1Client] Assignations disponibles :`,
+                assignations.map(a => `comptable=${a.comptable_id} statut=${a.statut}`).join(' | ')
+            );
             throw new Error(
-                `Aucune assignation active entre le client ${client_id} et le comptable ${comptable_id}`
+                `Aucune assignation active entre client ${client_id} et comptable ${comptable_id}`
             );
         }
+
+        console.log(`[MS2][MS1Client] Assignation vérifiée ✓`);
         return active;
     } catch (err) {
+        console.error(`[MS2][MS1Client] ERREUR verifyAssignation :`, err.message, '| code:', err.code);
         if (err.message.includes('Aucune assignation')) throw err;
-        throw new Error(
-            `Impossible de vérifier l'assignation client↔comptable : ${err.message}`
-        );
+        throw new Error(`Vérification assignation échouée (${err.code || 'ERR'}) : ${err.message}`);
     }
 }
 

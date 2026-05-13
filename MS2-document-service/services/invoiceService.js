@@ -5,7 +5,7 @@ const crypto            = require('crypto');
 const initDatabase      = require('../db/database');
 const { verifyClientExists, verifyComptableExists, verifyAssignation } = require('../grpc/ms1Client');
 
-//Helpers
+// ── Helpers ───────────────────────────────────────────────────────────────
 
 function calcTva(montant_ht, tva_rate) {
     const tva_montant = parseFloat((montant_ht * tva_rate / 100).toFixed(3));
@@ -20,16 +20,20 @@ function generateNumero(type) {
     return `${prefix}-${date}-${rand}`;
 }
 
-// CreateInvoice
+// Transitions de statut autorisées
+const TRANSITIONS = {
+    brouillon: ['validee'],
+    validee:   ['envoyee', 'payee'],
+    signee:    ['envoyee', 'payee'],
+    envoyee:   ['payee'],
+    payee:     [],  // état final
+};
+
+// ── CreateInvoice ─────────────────────────────────────────────────────────
 async function createInvoice({ type, client_id, client_nom, comptable_id,
                                  montant_ht, tva_rate, details_json }) {
-    // 1. Vérifier que le client existe dans MS1
     await verifyClientExists(client_id);
-
-    // 2. Vérifier que le comptable existe dans MS1
     await verifyComptableExists(comptable_id);
-
-    // 3. Vérifier que l'assignation client↔comptable est active dans MS1
     await verifyAssignation(client_id, comptable_id);
 
     const db = await initDatabase();
@@ -59,37 +63,54 @@ async function createInvoice({ type, client_id, client_nom, comptable_id,
     return rxDoc.toJSON();
 }
 
-// UpdateInvoice
-async function updateInvoice({ invoice_id, montant_ht, tva_rate, details_json }) {
+// ── UpdateInvoice ─────────────────────────────────────────────────────────
+async function updateInvoice({ invoice_id, montant_ht, tva_rate, details_json, statut }) {
     const db  = await initDatabase();
     const doc = await db.factures.findOne(invoice_id).exec();
 
     if (!doc) throw new Error(`Facture non trouvée : ${invoice_id}`);
 
-    // Règle métier : seul un brouillon est modifiable
-    if (doc.statut !== 'brouillon') {
-        throw new Error(
-            `Impossible de modifier la facture ${invoice_id} — statut actuel : "${doc.statut}". Seuls les brouillons sont modifiables.`
-        );
+    const patch      = {};
+    const prevStatut = doc.statut;
+
+    // ── Changement de statut ──────────────────────────────────────────────
+    if (statut && statut !== '') {
+        const allowed = TRANSITIONS[prevStatut] || [];
+        if (!allowed.includes(statut)) {
+            throw new Error(
+                `Transition invalide : "${prevStatut}" → "${statut}". ` +
+                `Transitions autorisées depuis "${prevStatut}" : [${allowed.join(', ') || 'aucune'}]`
+            );
+        }
+        patch.statut = statut;
     }
 
-    const patch = {};
-
+    // ── Modification montants — brouillon seulement ───────────────────────
     if (montant_ht && montant_ht > 0) {
-        const rate            = tva_rate && tva_rate > 0 ? tva_rate : doc.tva_rate;
+        if (prevStatut !== 'brouillon') throw new Error(
+            `Impossible de modifier les montants — statut : "${prevStatut}". Brouillon requis.`
+        );
+        const rate = tva_rate && tva_rate > 0 ? tva_rate : doc.tva_rate;
         const { tva_montant, montant_ttc } = calcTva(montant_ht, rate);
         patch.montant_ht  = montant_ht;
         patch.tva_rate    = rate;
         patch.tva_montant = tva_montant;
         patch.montant_ttc = montant_ttc;
     } else if (tva_rate && tva_rate > 0) {
+        if (prevStatut !== 'brouillon') throw new Error(
+            `Impossible de modifier le taux TVA — statut : "${prevStatut}". Brouillon requis.`
+        );
         const { tva_montant, montant_ttc } = calcTva(doc.montant_ht, tva_rate);
         patch.tva_rate    = tva_rate;
         patch.tva_montant = tva_montant;
         patch.montant_ttc = montant_ttc;
     }
 
+    // ── Modification details_json — brouillon seulement ───────────────────
     if (details_json && details_json !== '') {
+        if (prevStatut !== 'brouillon') throw new Error(
+            `Impossible de modifier les détails — statut : "${prevStatut}". Brouillon requis.`
+        );
         patch.details_json = details_json;
     }
 
@@ -98,51 +119,50 @@ async function updateInvoice({ invoice_id, montant_ht, tva_rate, details_json })
     }
 
     await doc.patch(patch);
-    console.log(`[MS2] Facture mise à jour → ${invoice_id}`);
-    return doc.toJSON();
+
+    // ── Relire depuis DB après patch pour avoir les valeurs à jour ─────────
+    const updated = await db.factures.findOne(invoice_id).exec();
+
+    console.log(`[MS2] Facture mise à jour → ${invoice_id}${patch.statut ? ` (${prevStatut} → ${patch.statut})` : ''}`);
+
+    const becamePaid = patch.statut === 'payee' && prevStatut !== 'payee';
+    return { invoice: updated.toJSON(), becamePaid };
+    return { invoice: updated.toJSON(), becamePaid };
 }
 
-// DeleteInvoice
+// ── DeleteInvoice ─────────────────────────────────────────────────────────
 async function deleteInvoice({ invoice_id }) {
     const db  = await initDatabase();
     const doc = await db.factures.findOne(invoice_id).exec();
 
     if (!doc) throw new Error(`Facture non trouvée : ${invoice_id}`);
 
-    // Règle métier : seul un brouillon est supprimable
-    if (doc.statut !== 'brouillon') {
-        throw new Error(
-            `Impossible de supprimer la facture ${invoice_id} — statut actuel : "${doc.statut}". Seuls les brouillons sont supprimables.`
-        );
-    }
+    if (doc.statut !== 'brouillon') throw new Error(
+        `Impossible de supprimer la facture ${invoice_id} — statut : "${doc.statut}". Brouillon requis.`
+    );
 
     await doc.remove();
     console.log(`[MS2] Facture supprimée → ${invoice_id}`);
     return { success: true, message: `Facture ${invoice_id} supprimée avec succès` };
 }
 
-// SignInvoice
+// ── SignInvoice ───────────────────────────────────────────────────────────
 async function signInvoice({ invoice_id, comptable_id }) {
     const db  = await initDatabase();
     const doc = await db.factures.findOne(invoice_id).exec();
 
     if (!doc) throw new Error(`Facture non trouvée : ${invoice_id}`);
-    if (doc.statut === 'signee') throw new Error(`Facture déjà signée : ${invoice_id}`);
+    if (doc.statut === 'signee')    throw new Error(`Facture déjà signée : ${invoice_id}`);
     if (doc.statut === 'brouillon') throw new Error(
-        `Facture encore en brouillon : ${invoice_id}. Veuillez la valider avant de la signer.`
+        `Facture en brouillon : ${invoice_id}. Veuillez la valider avant de la signer.`
     );
 
-    // Vérifier que le comptable signataire est bien assigné à ce client
     await verifyAssignation(doc.client_id, comptable_id);
 
     const signed_at = new Date().toISOString();
     const content   = {
-        invoice_id,
-        numero:      doc.numero,
-        client_id:   doc.client_id,
-        montant_ttc: doc.montant_ttc,
-        comptable_id,
-        signed_at,
+        invoice_id, numero: doc.numero, client_id: doc.client_id,
+        montant_ttc: doc.montant_ttc, comptable_id, signed_at,
     };
     const signature_hash = crypto
         .createHash('sha256')
@@ -154,7 +174,7 @@ async function signInvoice({ invoice_id, comptable_id }) {
     return { success: true, signature_hash, signed_at };
 }
 
-//GetInvoice
+// ── GetInvoice ────────────────────────────────────────────────────────────
 async function getInvoice({ id }) {
     const db  = await initDatabase();
     const doc = await db.factures.findOne(id).exec();
@@ -162,7 +182,7 @@ async function getInvoice({ id }) {
     return doc.toJSON();
 }
 
-// GetClientInvoices
+// ── GetClientInvoices ─────────────────────────────────────────────────────
 async function getClientInvoices({ client_id }) {
     const db   = await initDatabase();
     const docs = await db.factures.find({
@@ -172,7 +192,7 @@ async function getClientInvoices({ client_id }) {
     return docs.map(d => d.toJSON());
 }
 
-//GetAllInvoices
+// ── GetAllInvoices ────────────────────────────────────────────────────────
 async function getAllInvoices() {
     const db   = await initDatabase();
     const docs = await db.factures.find({

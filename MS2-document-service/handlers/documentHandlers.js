@@ -6,15 +6,15 @@ const declService      = require('../services/declarationService');
 const alerteService    = require('../services/alerteService');
 const kafka            = require('../kafka/producer');
 
-// ── Helper
+//Helper
 function grpcError(err) {
     const msg = err.message || '';
     if (msg.includes('non trouvée') || msg.includes('introuvable')) return grpc.status.NOT_FOUND;
     if (msg.includes('déjà'))                                        return grpc.status.ALREADY_EXISTS;
-    if (msg.includes('Impossible') || msg.includes('Aucune'))        return grpc.status.FAILED_PRECONDITION;
+    if (msg.includes('Impossible') || msg.includes('Aucune') ||
+        msg.includes('Transition') || msg.includes('invalide'))      return grpc.status.FAILED_PRECONDITION;
     return grpc.status.INTERNAL;
 }
-
 
 //  INVOICE HANDLERS
 async function createInvoice(call, callback) {
@@ -31,7 +31,20 @@ async function createInvoice(call, callback) {
 
 async function updateInvoice(call, callback) {
     try {
-        const invoice = await invoiceService.updateInvoice(call.request);
+        // invoiceService.updateInvoice retourne { invoice, becamePaid }
+        const { invoice, becamePaid } = await invoiceService.updateInvoice(call.request);
+
+        // Publier invoice.paid si le statut vient de passer à "payee"
+        if (becamePaid) {
+            kafka.publishInvoicePaid({
+                invoice_id:  invoice.id,
+                client_id:   invoice.client_id,
+                montant_ttc: invoice.montant_ttc,
+            }).catch(err =>
+                console.error('[MS2][Kafka] Erreur invoice.paid :', err.message)
+            );
+        }
+
         callback(null, { invoice });
     } catch (err) {
         callback({ code: grpcError(err), message: err.message });
@@ -164,7 +177,6 @@ async function getAllDeclarations(call, callback) {
 }
 
 //  ALERTE HANDLERS
-
 async function createAlerte(call, callback) {
     try {
         const alerte = await alerteService.createAlerte(call.request);
@@ -196,12 +208,9 @@ async function getAllAlertes(call, callback) {
 }
 
 module.exports = {
-    // Invoice
     createInvoice, updateInvoice, deleteInvoice,
     signInvoice, getInvoice, getClientInvoices, getAllInvoices,
-    // Declaration
     createDeclaration, updateDeclaration, deleteDeclaration,
     validateDeclaration, getDeclaration, getClientDeclarations, getAllDeclarations,
-    // Alerte
     createAlerte, getAlertes, getAllAlertes,
 };

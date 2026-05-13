@@ -1,4 +1,7 @@
+### ══════════════════════════════════════════════════
 ###  MS1 — Identity Service
+### ══════════════════════════════════════════════════
+
 type Cabinet {
     id:         ID!
     nom:        String!
@@ -41,8 +44,10 @@ type Assignation {
     statut:       String
 }
 
-
+### ══════════════════════════════════════════════════
 ###  MS2 — Document Service
+### ══════════════════════════════════════════════════
+
 type Invoice {
     id:             ID!
     type:           String!
@@ -99,10 +104,13 @@ type DeleteResponse {
     message: String!
 }
 
+### ══════════════════════════════════════════════════
 ###  QUERIES
+### ══════════════════════════════════════════════════
+
 type Query {
 
-    # MS1
+    # ── MS1 ───────────────────────────────────────
     cabinet(id: ID!):                            Cabinet
     cabinets:                                    [Cabinet]
 
@@ -115,7 +123,7 @@ type Query {
 
     assignationsByClient(client_id: ID!):        [Assignation]
 
-    # MS2
+    # ── MS2 ───────────────────────────────────────
     invoice(id: ID!):                            Invoice
     invoices:                                    [Invoice]
     invoicesByClient(client_id: ID!):            [Invoice]
@@ -128,10 +136,13 @@ type Query {
     alertesByClient(client_id: ID!):             [Alerte]
 }
 
+### ══════════════════════════════════════════════════
 ###  MUTATIONS
+### ══════════════════════════════════════════════════
+
 type Mutation {
 
-    # ─Cabinet
+    # ── MS1 — Cabinet ─────────────────────────────
     createCabinet(
         nom:       String!
         adresse:   String
@@ -139,7 +150,7 @@ type Mutation {
         telephone: String
     ): Cabinet
 
-    # Comptable
+    # ── MS1 — Comptable ───────────────────────────
     createComptable(
         nom:            String!
         email:          String!
@@ -150,7 +161,7 @@ type Mutation {
         numero_licence: String
     ): Comptable
 
-    # Client
+    # ── MS1 — Client ──────────────────────────────
     createClient(
         nom:              String!
         email:            String!
@@ -161,7 +172,7 @@ type Mutation {
         adresse:          String
     ): Client
 
-    # Assignation
+    # ── MS1 — Assignation ─────────────────────────
     assignComptableToClient(
         comptable_id: ID!
         client_id:    ID!
@@ -169,7 +180,7 @@ type Mutation {
         date_debut:   String
     ): Assignation
 
-    #Invoice
+    # ── MS2 — Invoice ─────────────────────────────
     createInvoice(
         type:         String!
         client_id:    ID!
@@ -185,6 +196,7 @@ type Mutation {
         montant_ht:   Float
         tva_rate:     Float
         details_json: String
+        statut:       String
     ): Invoice
 
     deleteInvoice(
@@ -196,7 +208,7 @@ type Mutation {
         comptable_id: ID!
     ): SignResponse
 
-    #Declaration
+    # ── MS2 — Declaration ─────────────────────────
     createDeclaration(
         client_id:    ID!
         client_nom:   String!
@@ -221,7 +233,7 @@ type Mutation {
         comptable_id:   ID!
     ): Declaration
 
-    #Alerte
+    # ── MS2 — Alerte ──────────────────────────────
     createAlerte(
         client_id:   ID!
         type:        String!
