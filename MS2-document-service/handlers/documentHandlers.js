@@ -1,14 +1,22 @@
 'use strict';
 
-const grpc= require('@grpc/grpc-js');
-const invoiceService= require('../services/invoiceService');
-const declService   = require('../services/declarationService');
-const alerteService = require('../services/alerteService');
-const kafka= require('../kafka/producer');
+const grpc             = require('@grpc/grpc-js');
+const invoiceService   = require('../services/invoiceService');
+const declService      = require('../services/declarationService');
+const alerteService    = require('../services/alerteService');
+const kafka            = require('../kafka/producer');
+
+// ── Helper
+function grpcError(err) {
+    const msg = err.message || '';
+    if (msg.includes('non trouvée') || msg.includes('introuvable')) return grpc.status.NOT_FOUND;
+    if (msg.includes('déjà'))                                        return grpc.status.ALREADY_EXISTS;
+    if (msg.includes('Impossible') || msg.includes('Aucune'))        return grpc.status.FAILED_PRECONDITION;
+    return grpc.status.INTERNAL;
+}
+
 
 //  INVOICE HANDLERS
-
-// CreateInvoice
 async function createInvoice(call, callback) {
     try {
         const invoice = await invoiceService.createInvoice(call.request);
@@ -17,16 +25,31 @@ async function createInvoice(call, callback) {
         );
         callback(null, { invoice });
     } catch (err) {
-        callback({ code: grpc.status.INTERNAL, message: err.message });
+        callback({ code: grpcError(err), message: err.message });
     }
 }
 
-// SignInvoice
+async function updateInvoice(call, callback) {
+    try {
+        const invoice = await invoiceService.updateInvoice(call.request);
+        callback(null, { invoice });
+    } catch (err) {
+        callback({ code: grpcError(err), message: err.message });
+    }
+}
+
+async function deleteInvoice(call, callback) {
+    try {
+        const result = await invoiceService.deleteInvoice(call.request);
+        callback(null, result);
+    } catch (err) {
+        callback({ code: grpcError(err), message: err.message });
+    }
+}
+
 async function signInvoice(call, callback) {
     try {
-        const result = await invoiceService.signInvoice(call.request);
-
-        // On a besoin de la facture pour enrichir l'event Kafka
+        const result  = await invoiceService.signInvoice(call.request);
         const invoice = await invoiceService.getInvoice({ id: call.request.invoice_id });
         kafka.publishInvoiceSigned({
             invoice_id:     invoice.id,
@@ -39,29 +62,19 @@ async function signInvoice(call, callback) {
         );
         callback(null, result);
     } catch (err) {
-        const notFound = err.message.includes('non trouvée');
-        callback({
-            code:    notFound ? grpc.status.NOT_FOUND : grpc.status.INTERNAL,
-            message: err.message,
-        });
+        callback({ code: grpcError(err), message: err.message });
     }
 }
 
-// GetInvoice
 async function getInvoice(call, callback) {
     try {
         const invoice = await invoiceService.getInvoice(call.request);
         callback(null, { invoice });
     } catch (err) {
-        const notFound = err.message.includes('non trouvée');
-        callback({
-            code:    notFound ? grpc.status.NOT_FOUND : grpc.status.INTERNAL,
-            message: err.message,
-        });
+        callback({ code: grpcError(err), message: err.message });
     }
 }
 
-// GetClientInvoices
 async function getClientInvoices(call, callback) {
     try {
         const invoices = await invoiceService.getClientInvoices(call.request);
@@ -71,7 +84,6 @@ async function getClientInvoices(call, callback) {
     }
 }
 
-// GetAllInvoices
 async function getAllInvoices(call, callback) {
     try {
         const invoices = await invoiceService.getAllInvoices();
@@ -82,7 +94,6 @@ async function getAllInvoices(call, callback) {
 }
 
 //  DECLARATION HANDLERS
-// CreateDeclaration
 async function createDeclaration(call, callback) {
     try {
         const declaration = await declService.createDeclaration(call.request);
@@ -91,11 +102,28 @@ async function createDeclaration(call, callback) {
         );
         callback(null, { declaration });
     } catch (err) {
-        callback({ code: grpc.status.INTERNAL, message: err.message });
+        callback({ code: grpcError(err), message: err.message });
     }
 }
 
-// ValidateDeclaration
+async function updateDeclaration(call, callback) {
+    try {
+        const declaration = await declService.updateDeclaration(call.request);
+        callback(null, { declaration });
+    } catch (err) {
+        callback({ code: grpcError(err), message: err.message });
+    }
+}
+
+async function deleteDeclaration(call, callback) {
+    try {
+        const result = await declService.deleteDeclaration(call.request);
+        callback(null, result);
+    } catch (err) {
+        callback({ code: grpcError(err), message: err.message });
+    }
+}
+
 async function validateDeclaration(call, callback) {
     try {
         const declaration = await declService.validateDeclaration(call.request);
@@ -104,29 +132,19 @@ async function validateDeclaration(call, callback) {
         );
         callback(null, { declaration });
     } catch (err) {
-        const notFound = err.message.includes('non trouvée');
-        callback({
-            code:    notFound ? grpc.status.NOT_FOUND : grpc.status.INTERNAL,
-            message: err.message,
-        });
+        callback({ code: grpcError(err), message: err.message });
     }
 }
 
-// GetDeclaration
 async function getDeclaration(call, callback) {
     try {
         const declaration = await declService.getDeclaration(call.request);
         callback(null, { declaration });
     } catch (err) {
-        const notFound = err.message.includes('non trouvée');
-        callback({
-            code:    notFound ? grpc.status.NOT_FOUND : grpc.status.INTERNAL,
-            message: err.message,
-        });
+        callback({ code: grpcError(err), message: err.message });
     }
 }
 
-// GetClientDeclarations
 async function getClientDeclarations(call, callback) {
     try {
         const declarations = await declService.getClientDeclarations(call.request);
@@ -136,7 +154,6 @@ async function getClientDeclarations(call, callback) {
     }
 }
 
-// GetAllDeclarations
 async function getAllDeclarations(call, callback) {
     try {
         const declarations = await declService.getAllDeclarations();
@@ -146,9 +163,8 @@ async function getAllDeclarations(call, callback) {
     }
 }
 
-
 //  ALERTE HANDLERS
-// CreateAlerte
+
 async function createAlerte(call, callback) {
     try {
         const alerte = await alerteService.createAlerte(call.request);
@@ -157,11 +173,10 @@ async function createAlerte(call, callback) {
         );
         callback(null, { alerte });
     } catch (err) {
-        callback({ code: grpc.status.INTERNAL, message: err.message });
+        callback({ code: grpcError(err), message: err.message });
     }
 }
 
-// GetAlertes
 async function getAlertes(call, callback) {
     try {
         const alertes = await alerteService.getAlertes(call.request);
@@ -171,22 +186,22 @@ async function getAlertes(call, callback) {
     }
 }
 
-// GetAllAlertes
 async function getAllAlertes(call, callback) {
     try {
         const alertes = await alerteService.getAllAlertes();
-        callback(null, {alertes});
+        callback(null, { alertes });
     } catch (err) {
-        callback({code: grpc.status.INTERNAL, message: err.message});
+        callback({ code: grpc.status.INTERNAL, message: err.message });
     }
-
 }
 
 module.exports = {
-    createInvoice, signInvoice, getInvoice, getClientInvoices, getAllInvoices,
-    createDeclaration, validateDeclaration, getDeclaration,
-    getClientDeclarations, getAllDeclarations,
+    // Invoice
+    createInvoice, updateInvoice, deleteInvoice,
+    signInvoice, getInvoice, getClientInvoices, getAllInvoices,
+    // Declaration
+    createDeclaration, updateDeclaration, deleteDeclaration,
+    validateDeclaration, getDeclaration, getClientDeclarations, getAllDeclarations,
+    // Alerte
     createAlerte, getAlertes, getAllAlertes,
 };
-
-
