@@ -34,7 +34,7 @@ message AuditLogsListResponse {
   repeated AuditLog audit_logs = 1;
 }
 
-//  SERVICE — lecture uniquement (createAuditLog géré par Kafka consumer)
+//  SERVICE — lecture 
 service AuditService {
   rpc GetAuditLogsByClient  (GetAuditLogsByClientRequest) returns (AuditLogsListResponse);
   rpc GetAuditLogsByEntity  (GetAuditLogsByEntityRequest) returns (AuditLogsListResponse);
