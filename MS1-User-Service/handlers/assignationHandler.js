@@ -7,12 +7,13 @@ const kafka   = require('../kafka/producer');
 // AssignComptableToClient
 async function assignComptableToClient(call, callback) {
     try {
-        const result = await service.assignComptableToClient(call.request);
-        // Publier event Kafka
+        const assignation = await service.assignComptableToClient(call.request);
+
         kafka.publishComptableAssigned(call.request).catch(err =>
             console.error('[MS1][Kafka] Erreur comptable.assigned :', err.message)
         );
-        callback(null, result);
+
+        callback(null, { assignation });
     } catch (err) {
         const notFound = err.message.includes('non trouvé');
         callback({
@@ -22,7 +23,7 @@ async function assignComptableToClient(call, callback) {
     }
 }
 
-// GetAssignationsByClient
+// GetAssignationsByClient — inchangé
 async function getAssignationsByClient(call, callback) {
     try {
         const assignations = await service.getAssignationsByClient(call.request);

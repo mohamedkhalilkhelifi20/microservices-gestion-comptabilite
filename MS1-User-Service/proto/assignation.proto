@@ -14,8 +14,6 @@ message ComptableClient {
 
 //  MESSAGES — Requests
 
-
-// Assignation N..N
 message AssignComptableRequest {
   string comptable_id = 1;
   string client_id    = 2;
@@ -25,9 +23,9 @@ message GetAssignationsRequest { string client_id = 1; }
 
 //  MESSAGES — Responses
 
-message AssignResponse {
-  bool   success = 1;
-  string message = 2;
+
+message ComptableClientResponse {
+  ComptableClient assignation = 1;
 }
 
 message AssignationsListResponse {
@@ -36,6 +34,6 @@ message AssignationsListResponse {
 
 //  SERVICE
 service AssignationService {
-  rpc AssignComptableToClient (AssignComptableRequest)  returns (AssignResponse);
+  rpc AssignComptableToClient (AssignComptableRequest)  returns (ComptableClientResponse);
   rpc GetAssignationsByClient (GetAssignationsRequest)  returns (AssignationsListResponse);
 }

@@ -46,30 +46,27 @@ function buildServer() {
     const server = new grpc.Server();
 
     server.addService(alertePkg.AlerteService.service, {
-        CreateAlerte:  handler.createAlerte,
-        GetAlertes:    handler.getAlertes,
-        GetAllAlertes: handler.getAllAlertes,
+        createAlerte:  handler.createAlerte,
+        getAlertes:    handler.getAlertes,
+        getAllAlertes:  handler.getAllAlertes,
     });
-
     server.addService(reportPkg.ReportService.service, {
-        CreateReport:       handler.createReport,
-        GetReport:          handler.getReport,
-        GetReportsByClient: handler.getReportsByClient,
-        GetAllReports:      handler.getAllReports,
-        UpdateReport:       handler.updateReport,
-        DeleteReport:       handler.deleteReport,
+        createReport:       handler.createReport,
+        getReport:          handler.getReport,
+        getReportsByClient: handler.getReportsByClient,
+        getAllReports:       handler.getAllReports,
+        updateReport:       handler.updateReport,
+        deleteReport:       handler.deleteReport,
     });
-
     server.addService(statPkg.StatService.service, {
-        GetStat:          handler.getStat,
-        GetStatsByClient: handler.getStatsByClient,
-        GetAllStats:      handler.getAllStats,
+        getStat:          handler.getStat,
+        getStatsByClient: handler.getStatsByClient,
+        getAllStats:       handler.getAllStats,
     });
-
     server.addService(auditPkg.AuditService.service, {
-        GetAuditLogsByClient: handler.getAuditLogsByClient,
-        GetAuditLogsByEntity: handler.getAuditLogsByEntity,
-        GetAllAuditLogs:      handler.getAllAuditLogs,
+        getAuditLogsByClient: handler.getAuditLogsByClient,
+        getAuditLogsByEntity: handler.getAuditLogsByEntity,
+        getAllAuditLogs:       handler.getAllAuditLogs,
     });
 
     return server;
@@ -79,13 +76,10 @@ function buildServer() {
 
 async function main() {
     try {
-        // 1 — Init RxDB
         await initDatabase();
 
-        // 2 — Start Kafka consumer
         await startConsumer();
 
-        // 3 — Start gRPC server
         const server = buildServer();
 
         server.bindAsync(
@@ -100,7 +94,6 @@ async function main() {
             }
         );
 
-        // 4 — Graceful shutdown
         process.on('SIGINT',  () => shutdown(server));
         process.on('SIGTERM', () => shutdown(server));
 

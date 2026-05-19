@@ -3,13 +3,11 @@
 const { v4: uuidv4 } = require('uuid');
 const initDatabase   = require('../db/database');
 
-// Helpers
 
 function now() {
     return new Date().toISOString();
 }
 
-//  Service
 
 async function createAuditLog({
                                   client_id,
@@ -60,8 +58,6 @@ async function getAllAuditLogs() {
     const results = await db.audit_logs.find().exec();
     return results.map(d => d.toJSON());
 }
-
-//Exports
 
 module.exports = {
     createAuditLog,

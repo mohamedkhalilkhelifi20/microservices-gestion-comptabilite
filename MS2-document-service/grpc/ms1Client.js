@@ -4,7 +4,7 @@ const path        = require('path');
 const grpc        = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
-const PROTO_MS1 = path.join(__dirname, '..', '..', 'ms1-user-service', 'proto');
+const PROTO_MS1 = path.join(__dirname, '..', 'ms1-user-service', 'proto');
 const MS1_ADDR  = process.env.MS1_ADDR || 'localhost:50051';
 
 const OPTS = {
@@ -36,7 +36,7 @@ function call(client, method, request = {}) {
     });
 }
 
-// ── Vérifier que le client existe dans MS1 ────────────────────────────────
+// ── Vérifier que le client existe dans MS1
 async function verifyClientExists(client_id) {
     console.log(`[MS2][MS1Client] verifyClientExists → id: ${client_id} | MS1: ${MS1_ADDR}`);
     try {
@@ -55,7 +55,7 @@ async function verifyClientExists(client_id) {
     }
 }
 
-// ── Vérifier que le comptable existe dans MS1 ─────────────────────────────
+// ── Vérifier que le comptable existe dans MS1
 async function verifyComptableExists(comptable_id) {
     console.log(`[MS2][MS1Client] verifyComptableExists → id: ${comptable_id}`);
     try {

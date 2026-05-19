@@ -7,8 +7,8 @@ const protoLoader = require('@grpc/proto-loader');
 const MS1_ADDR = process.env.MS1_ADDR || 'localhost:50051';
 const MS2_ADDR = process.env.MS2_ADDR || 'localhost:50052';
 
-const PROTO_MS1 = path.join(__dirname, '..', '..', 'ms1-user-service',     'proto');
-const PROTO_MS2 = path.join(__dirname, '..', '..', 'ms2-document-service', 'proto');
+const PROTO_MS1 = path.join(__dirname, '..', 'ms1-user-service',     'proto');
+const PROTO_MS2 = path.join(__dirname, '..', 'ms2-document-service', 'proto');
 
 function loaderOptions(protoDir) {
     return {
@@ -21,8 +21,9 @@ function loaderOptions(protoDir) {
     };
 }
 
+//Chargement des packages proto
 
-//MS1
+// MS1
 const cabinetPkg = grpc.loadPackageDefinition(
     protoLoader.loadSync(path.join(PROTO_MS1, 'cabinet.proto'), loaderOptions(PROTO_MS1))
 ).cabinet;
@@ -35,32 +36,28 @@ const clientPkg = grpc.loadPackageDefinition(
     protoLoader.loadSync(path.join(PROTO_MS1, 'client.proto'), loaderOptions(PROTO_MS1))
 ).client;
 
-const assignationPkg = grpc.loadPackageDefinition(
-    protoLoader.loadSync(path.join(PROTO_MS1, 'assignation.proto'), loaderOptions(PROTO_MS1))
-).assignation;
-
-// Clients MS2
-const facturePkg = grpc.loadPackageDefinition(
-    protoLoader.loadSync(path.join(PROTO_MS2, 'facture.proto'), loaderOptions(PROTO_MS2))
-).facture;
+// MS2
+const invoicePkg = grpc.loadPackageDefinition(
+    protoLoader.loadSync(path.join(PROTO_MS2, 'invoice.proto'), loaderOptions(PROTO_MS2))
+).invoice;
 
 const declarationPkg = grpc.loadPackageDefinition(
     protoLoader.loadSync(path.join(PROTO_MS2, 'declaration.proto'), loaderOptions(PROTO_MS2))
 ).declaration;
 
-// Instanciation des clients
+//Instanciation des clients
 const credentials = grpc.credentials.createInsecure();
+
 // MS1 clients
-const cabinetClient     = new cabinetPkg.CabinetService(MS1_ADDR,     credentials);
-const comptableClient   = new comptablePkg.ComptableService(MS1_ADDR, credentials);
-const clientClient      = new clientPkg.ClientService(MS1_ADDR,       credentials);
-const assignationClient = new assignationPkg.AssignationService(MS1_ADDR, credentials);
+const cabinetClient   = new cabinetPkg.CabinetService(MS1_ADDR,     credentials);
+const comptableClient = new comptablePkg.ComptableService(MS1_ADDR, credentials);
+const clientClient    = new clientPkg.ClientService(MS1_ADDR,       credentials);
 
 // MS2 clients
-const factureClient     = new facturePkg.FactureService(MS2_ADDR,     credentials);
+const invoiceClient     = new invoicePkg.InvoiceService(MS2_ADDR,     credentials);
 const declarationClient = new declarationPkg.DeclarationService(MS2_ADDR, credentials);
 
-// ── Helper — promisify gRPC call
+//Helper — promisify gRPC call
 function callGrpc(client, method, request) {
     return new Promise((resolve, reject) => {
         client[method](request, (err, response) => {
@@ -70,12 +67,11 @@ function callGrpc(client, method, request) {
     });
 }
 
+//Exports
 module.exports = {
-    getClient:      (req) => callGrpc(clientClient,      'GetClient',      req),
-    getComptable:   (req) => callGrpc(comptableClient,   'GetComptable',   req),
-    getCabinet:     (req) => callGrpc(cabinetClient,     'GetCabinet',     req),
-    getAssignation: (req) => callGrpc(assignationClient, 'GetAssignation', req),
-
-    getFacture:     (req) => callGrpc(factureClient,     'GetFacture',     req),
-    getDeclaration: (req) => callGrpc(declarationClient, 'GetDeclaration', req),
+    getClient:      (req) => callGrpc(clientClient,      'getClient',      req),
+    getComptable:   (req) => callGrpc(comptableClient,   'getComptable',   req),
+    getCabinet:     (req) => callGrpc(cabinetClient,     'getCabinet',     req),
+    getInvoice:     (req) => callGrpc(invoiceClient,     'getInvoice',     req),
+    getDeclaration: (req) => callGrpc(declarationClient, 'getDeclaration', req),
 };

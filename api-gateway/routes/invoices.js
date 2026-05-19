@@ -5,9 +5,6 @@ const { invoiceClient, declarationClient, call } = require('../grpc/grpcClients'
 
 const router = Router();
 
-
-//  DÉCLARATIONS
-// POST /api/invoices/declarations
 router.post('/declarations', async (req, res) => {
     try {
         const result = await call(declarationClient, 'createDeclaration', req.body);
@@ -18,7 +15,6 @@ router.post('/declarations', async (req, res) => {
     }
 });
 
-// GET /api/invoices/declarations
 router.get('/declarations', async (req, res) => {
     try {
         const result = await call(declarationClient, 'getAllDeclarations', {});
@@ -28,7 +24,6 @@ router.get('/declarations', async (req, res) => {
     }
 });
 
-// GET /api/invoices/declarations/client/:client_id
 router.get('/declarations/client/:client_id', async (req, res) => {
     try {
         const result = await call(declarationClient, 'getClientDeclarations', {
@@ -40,7 +35,6 @@ router.get('/declarations/client/:client_id', async (req, res) => {
     }
 });
 
-// GET /api/invoices/declarations/:id
 router.get('/declarations/:id', async (req, res) => {
     try {
         const result = await call(declarationClient, 'getDeclaration', { id: req.params.id });
@@ -51,7 +45,6 @@ router.get('/declarations/:id', async (req, res) => {
     }
 });
 
-// PUT /api/invoices/declarations/:id/validate
 router.put('/declarations/:id/validate', async (req, res) => {
     try {
         const result = await call(declarationClient, 'validateDeclaration', {
@@ -65,7 +58,6 @@ router.put('/declarations/:id/validate', async (req, res) => {
     }
 });
 
-// PUT /api/invoices/declarations/:id
 router.put('/declarations/:id', async (req, res) => {
     try {
         const result = await call(declarationClient, 'updateDeclaration', {
@@ -79,8 +71,6 @@ router.put('/declarations/:id', async (req, res) => {
         res.status(code).json({ error: err.message });
     }
 });
-
-// DELETE /api/invoices/declarations/:id
 router.delete('/declarations/:id', async (req, res) => {
     try {
         const result = await call(declarationClient, 'deleteDeclaration', {
@@ -93,9 +83,6 @@ router.delete('/declarations/:id', async (req, res) => {
     }
 });
 
-//  FACTURES
-
-// POST /api/invoices
 router.post('/', async (req, res) => {
     try {
         const result = await call(invoiceClient, 'createInvoice', req.body);
@@ -152,8 +139,6 @@ router.put('/:id/sign', async (req, res) => {
         res.status(code).json({ error: err.message });
     }
 });
-
-// PUT /api/invoices/:id
 router.put('/:id', async (req, res) => {
     try {
         const result = await call(invoiceClient, 'updateInvoice', {
@@ -161,7 +146,7 @@ router.put('/:id', async (req, res) => {
             montant_ht:   req.body.montant_ht   || 0,
             tva_rate:     req.body.tva_rate     || 0,
             details_json: req.body.details_json || '',
-            statut:       req.body.statut       || '',  // ← statut inclus
+            statut:       req.body.statut       || '',
         });
         res.json(result.invoice);
     } catch (err) {

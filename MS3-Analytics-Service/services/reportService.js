@@ -2,7 +2,7 @@
 
 const { v4: uuidv4 } = require('uuid');
 const initDatabase   = require('../db/database');
-
+const grpcClients = require('../grpc/grpcClients');
 // Helpers
 
 function now() {
@@ -34,14 +34,14 @@ async function createReport({ client_id, type, periode, facture_id = null, decla
     try {
         // Données facture depuis MS2 si disponible
         if (facture_id) {
-            const factureData = await grpcClients.getFacture({ id: facture_id });
+            const invoiceData = await grpcClients.getInvoice({ id: facture_id });
             contenu.facture = {
-                id:          factureData.facture.id,
-                numero:      factureData.facture.numero,
-                montant_ht:  factureData.facture.montant_ht,
-                tva_montant: factureData.facture.tva_montant,
-                montant_ttc: factureData.facture.montant_ttc,
-                statut:      factureData.facture.statut,
+                id:          invoiceData.invoice.id,
+                numero:      invoiceData.invoice.numero,
+                montant_ht:  invoiceData.invoice.montant_ht,
+                tva_montant: invoiceData.invoice.tva_montant,
+                montant_ttc: invoiceData.invoice.montant_ttc,
+                statut:      invoiceData.invoice.statut,
             };
         }
     } catch (err) {

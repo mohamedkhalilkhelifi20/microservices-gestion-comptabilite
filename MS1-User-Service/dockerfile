@@ -1,0 +1,17 @@
+FROM node:20-alpine
+
+RUN apk add --no-cache python3 make g++
+
+WORKDIR /app
+
+COPY MS1-User-Service/package*.json ./
+
+COPY MS1-User-Service/ .
+
+# Rebuild sqlite3 APRÈS le COPY pour compiler pour Linux Alpine
+# et non Windows
+RUN npm install --production && npm rebuild sqlite3
+
+EXPOSE 50051
+
+CMD ["node", "server.js"]

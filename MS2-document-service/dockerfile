@@ -1,0 +1,17 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY MS2-document-service/package*.json ./
+
+RUN npm install --production
+
+COPY MS2-document-service/ .
+
+# Proto MS1 copié dans /app/ms1-user-service/proto
+
+COPY MS1-User-Service/proto ./ms1-user-service/proto
+
+EXPOSE 50052
+
+CMD ["node", "server.js"]

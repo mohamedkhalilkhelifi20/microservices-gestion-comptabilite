@@ -5,7 +5,16 @@
       <map>
         <entry key="IAC">
           <value>
-            <list />
+            <list>
+              <option value="b6f1ba3d-c880-492e-bf46-205632a97210" />
+              <option value="e1576a3a-1c1e-48f8-8b1a-72b82c9ef157" />
+              <option value="4bb91dc1-3215-42c2-8281-0fb991fbbdd3" />
+              <option value="33ed65c7-9fa6-4d89-a8ac-f986bc9ab025" />
+              <option value="cc8282c6-2c62-4a18-88b1-60361a6340a7" />
+              <option value="7c127b2c-4c6b-4d8d-b082-d86f354d65e4" />
+              <option value="d4e92be6-7e0c-4cbf-a88b-71ef3e0f765f" />
+              <option value="bb108f9f-699c-4caf-9feb-bd54b5bfdb7b" />
+            </list>
           </value>
         </entry>
         <entry key="SCA">
@@ -39,6 +48,1582 @@
           </value>
         </entry>
       </map>
+    </option>
+    <option name="files">
+      <map>
+        <entry key="C:\Users\HP-PC\Desktop\projet\soa\MS1-User-Service\dockerfile">
+          <value>
+            <list>
+              <option value="d4e92be6-7e0c-4cbf-a88b-71ef3e0f765f" />
+              <option value="bb108f9f-699c-4caf-9feb-bd54b5bfdb7b" />
+            </list>
+          </value>
+        </entry>
+        <entry key="C:\Users\HP-PC\Desktop\projet\soa\MS2-document-service\dockerfile">
+          <value>
+            <list>
+              <option value="b6f1ba3d-c880-492e-bf46-205632a97210" />
+              <option value="e1576a3a-1c1e-48f8-8b1a-72b82c9ef157" />
+            </list>
+          </value>
+        </entry>
+        <entry key="C:\Users\HP-PC\Desktop\projet\soa\MS3-Analytics-Service\dockerfile">
+          <value>
+            <list>
+              <option value="4bb91dc1-3215-42c2-8281-0fb991fbbdd3" />
+              <option value="33ed65c7-9fa6-4d89-a8ac-f986bc9ab025" />
+            </list>
+          </value>
+        </entry>
+        <entry key="C:\Users\HP-PC\Desktop\projet\soa\api-gateway\dockerfile">
+          <value>
+            <list>
+              <option value="cc8282c6-2c62-4a18-88b1-60361a6340a7" />
+              <option value="7c127b2c-4c6b-4d8d-b082-d86f354d65e4" />
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="results">
+      <map>
+        <entry key="33ed65c7-9fa6-4d89-a8ac-f986bc9ab025">
+          <value>
+            <ScanResult>
+              <option name="codeAnnotation">
+                <map>
+                  <entry key="1">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="1" />
+                        <option name="text" value="FROM node:20-alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="2" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="3">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="3" />
+                        <option name="text" value="WORKDIR /app" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="4">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="4" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="5">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="5" />
+                        <option name="text" value="COPY MS3-Analytics-Service/package*.json ./" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="6">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="6" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="7">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="7" />
+                        <option name="text" value="RUN npm install --production" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="8">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="8" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="9">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="9" />
+                        <option name="text" value="COPY MS3-Analytics-Service/ ." />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="10">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="10" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="11">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="11" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="12">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="12" />
+                        <option name="text" value="COPY MS1-User-Service/proto ./ms1-user-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="13">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="13" />
+                        <option name="text" value="COPY MS2-document-service/proto ./ms2-document-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="14">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="14" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="15">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="15" />
+                        <option name="text" value="EXPOSE 50053" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="16">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="16" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="17">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="17" />
+                        <option name="text" value="CMD [&quot;node&quot;, &quot;server.js&quot;]" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="documentation" value="https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created" />
+              <option name="originalResult" value="{&quot;check_id&quot;:&quot;CKV_DOCKER_3&quot;,&quot;bc_check_id&quot;:&quot;BC_DKR_3&quot;,&quot;check_name&quot;:&quot;Ensure that a user for the container has been created&quot;,&quot;code_block&quot;:[[1,&quot;FROM node:20-alpine\n&quot;],[2,&quot;\n&quot;],[3,&quot;WORKDIR /app\n&quot;],[4,&quot;\n&quot;],[5,&quot;COPY MS3-Analytics-Service/package*.json ./\n&quot;],[6,&quot;\n&quot;],[7,&quot;RUN npm install --production\n&quot;],[8,&quot;\n&quot;],[9,&quot;COPY MS3-Analytics-Service/ .\n&quot;],[10,&quot;\n&quot;],[11,&quot;\n&quot;],[12,&quot;COPY MS1-User-Service/proto ./ms1-user-service/proto\n&quot;],[13,&quot;COPY MS2-document-service/proto ./ms2-document-service/proto\n&quot;],[14,&quot;\n&quot;],[15,&quot;EXPOSE 50053\n&quot;],[16,&quot;\n&quot;],[17,&quot;CMD [\&quot;node\&quot;, \&quot;server.js\&quot;]&quot;]],&quot;file_abs_path&quot;:&quot;C:\\Users\\HP-PC\\Desktop\\projet\\soa\\MS3-Analytics-Service\\dockerfile&quot;,&quot;repo_file_path&quot;:&quot;/MS3-Analytics-Service/dockerfile&quot;,&quot;file_line_range&quot;:[1,17],&quot;guideline&quot;:&quot;https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created&quot;,&quot;resource&quot;:&quot;C:/Users/HP-PC/Desktop/projet/soa/MS3-Analytics-Service/dockerfile.&quot;,&quot;description&quot;:null,&quot;short_description&quot;:null,&quot;check_result&quot;:{&quot;evaluated_keys&quot;:null,&quot;inspected_key&quot;:&quot;&quot;}}" />
+              <option name="platformCheckId" value="BC_DKR_3" />
+              <option name="suppressible" value="true" />
+              <option name="id" value="33ed65c7-9fa6-4d89-a8ac-f986bc9ab025" />
+              <option name="category" value="IAC" />
+              <option name="framework" value="DOCKERFILE" />
+              <option name="checkId" value="CKV_DOCKER_3" />
+              <option name="checkName" value="Ensure that a user for the container has been created" />
+              <option name="resultName" value="Ensure that a user for the container has been created" />
+              <option name="popupTitle" value="Ensure that a user for the container has been created" />
+              <option name="resource" value="$PROJECT_DIR$/MS3-Analytics-Service/dockerfile." />
+              <option name="lineRange">
+                <Range>
+                  <option name="end" value="17" />
+                  <option name="start" value="1" />
+                </Range>
+              </option>
+              <option name="fileDetails">
+                <ScanResultFileDetails>
+                  <option name="absolutePath" value="C:\Users\HP-PC\Desktop\projet\soa\MS3-Analytics-Service\dockerfile" />
+                  <option name="relativePath" value="\MS3-Analytics-Service\dockerfile" />
+                  <option name="fileName" value="dockerfile" />
+                  <option name="extension" value="" />
+                </ScanResultFileDetails>
+              </option>
+            </ScanResult>
+          </value>
+        </entry>
+        <entry key="4bb91dc1-3215-42c2-8281-0fb991fbbdd3">
+          <value>
+            <ScanResult>
+              <option name="codeAnnotation">
+                <map>
+                  <entry key="1">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="1" />
+                        <option name="text" value="FROM node:20-alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="2" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="3">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="3" />
+                        <option name="text" value="WORKDIR /app" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="4">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="4" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="5">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="5" />
+                        <option name="text" value="COPY MS3-Analytics-Service/package*.json ./" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="6">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="6" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="7">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="7" />
+                        <option name="text" value="RUN npm install --production" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="8">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="8" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="9">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="9" />
+                        <option name="text" value="COPY MS3-Analytics-Service/ ." />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="10">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="10" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="11">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="11" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="12">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="12" />
+                        <option name="text" value="COPY MS1-User-Service/proto ./ms1-user-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="13">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="13" />
+                        <option name="text" value="COPY MS2-document-service/proto ./ms2-document-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="14">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="14" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="15">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="15" />
+                        <option name="text" value="EXPOSE 50053" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="16">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="16" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="17">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="17" />
+                        <option name="text" value="CMD [&quot;node&quot;, &quot;server.js&quot;]" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="documentation" value="https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images" />
+              <option name="originalResult" value="{&quot;check_id&quot;:&quot;CKV_DOCKER_2&quot;,&quot;bc_check_id&quot;:&quot;BC_DKR_2&quot;,&quot;check_name&quot;:&quot;Ensure that HEALTHCHECK instructions have been added to container images&quot;,&quot;code_block&quot;:[[1,&quot;FROM node:20-alpine\n&quot;],[2,&quot;\n&quot;],[3,&quot;WORKDIR /app\n&quot;],[4,&quot;\n&quot;],[5,&quot;COPY MS3-Analytics-Service/package*.json ./\n&quot;],[6,&quot;\n&quot;],[7,&quot;RUN npm install --production\n&quot;],[8,&quot;\n&quot;],[9,&quot;COPY MS3-Analytics-Service/ .\n&quot;],[10,&quot;\n&quot;],[11,&quot;\n&quot;],[12,&quot;COPY MS1-User-Service/proto ./ms1-user-service/proto\n&quot;],[13,&quot;COPY MS2-document-service/proto ./ms2-document-service/proto\n&quot;],[14,&quot;\n&quot;],[15,&quot;EXPOSE 50053\n&quot;],[16,&quot;\n&quot;],[17,&quot;CMD [\&quot;node\&quot;, \&quot;server.js\&quot;]&quot;]],&quot;file_abs_path&quot;:&quot;C:\\Users\\HP-PC\\Desktop\\projet\\soa\\MS3-Analytics-Service\\dockerfile&quot;,&quot;repo_file_path&quot;:&quot;/MS3-Analytics-Service/dockerfile&quot;,&quot;file_line_range&quot;:[1,17],&quot;guideline&quot;:&quot;https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images&quot;,&quot;resource&quot;:&quot;C:/Users/HP-PC/Desktop/projet/soa/MS3-Analytics-Service/dockerfile.&quot;,&quot;description&quot;:null,&quot;short_description&quot;:null,&quot;check_result&quot;:{&quot;evaluated_keys&quot;:null,&quot;inspected_key&quot;:&quot;&quot;}}" />
+              <option name="platformCheckId" value="BC_DKR_2" />
+              <option name="suppressible" value="true" />
+              <option name="id" value="4bb91dc1-3215-42c2-8281-0fb991fbbdd3" />
+              <option name="category" value="IAC" />
+              <option name="framework" value="DOCKERFILE" />
+              <option name="checkId" value="CKV_DOCKER_2" />
+              <option name="checkName" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="resultName" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="popupTitle" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="resource" value="$PROJECT_DIR$/MS3-Analytics-Service/dockerfile." />
+              <option name="lineRange">
+                <Range>
+                  <option name="end" value="17" />
+                  <option name="start" value="1" />
+                </Range>
+              </option>
+              <option name="fileDetails">
+                <ScanResultFileDetails>
+                  <option name="absolutePath" value="C:\Users\HP-PC\Desktop\projet\soa\MS3-Analytics-Service\dockerfile" />
+                  <option name="relativePath" value="\MS3-Analytics-Service\dockerfile" />
+                  <option name="fileName" value="dockerfile" />
+                  <option name="extension" value="" />
+                </ScanResultFileDetails>
+              </option>
+            </ScanResult>
+          </value>
+        </entry>
+        <entry key="7c127b2c-4c6b-4d8d-b082-d86f354d65e4">
+          <value>
+            <ScanResult>
+              <option name="codeAnnotation">
+                <map>
+                  <entry key="1">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="1" />
+                        <option name="text" value="FROM node:20-alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="2" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="3">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="3" />
+                        <option name="text" value="WORKDIR /app" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="4">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="4" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="5">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="5" />
+                        <option name="text" value="COPY api-gateway/package*.json ./" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="6">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="6" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="7">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="7" />
+                        <option name="text" value="RUN npm install --production" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="8">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="8" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="9">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="9" />
+                        <option name="text" value="COPY api-gateway/ ." />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="10">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="10" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="11">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="11" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="12">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="12" />
+                        <option name="text" value="COPY MS1-User-Service/proto ./ms1-user-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="13">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="13" />
+                        <option name="text" value="COPY MS2-document-service/proto ./ms2-document-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="14">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="14" />
+                        <option name="text" value="COPY MS3-Analytics-Service/proto ./ms3-analytics-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="15">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="15" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="16">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="16" />
+                        <option name="text" value="EXPOSE 3000" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="17">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="17" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="18">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="18" />
+                        <option name="text" value="CMD [&quot;node&quot;, &quot;index.js&quot;]" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="documentation" value="https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created" />
+              <option name="originalResult" value="{&quot;check_id&quot;:&quot;CKV_DOCKER_3&quot;,&quot;bc_check_id&quot;:&quot;BC_DKR_3&quot;,&quot;check_name&quot;:&quot;Ensure that a user for the container has been created&quot;,&quot;code_block&quot;:[[1,&quot;FROM node:20-alpine\n&quot;],[2,&quot;\n&quot;],[3,&quot;WORKDIR /app\n&quot;],[4,&quot;\n&quot;],[5,&quot;COPY api-gateway/package*.json ./\n&quot;],[6,&quot;\n&quot;],[7,&quot;RUN npm install --production\n&quot;],[8,&quot;\n&quot;],[9,&quot;COPY api-gateway/ .\n&quot;],[10,&quot;\n&quot;],[11,&quot;\n&quot;],[12,&quot;COPY MS1-User-Service/proto ./ms1-user-service/proto\n&quot;],[13,&quot;COPY MS2-document-service/proto ./ms2-document-service/proto\n&quot;],[14,&quot;COPY MS3-Analytics-Service/proto ./ms3-analytics-service/proto\n&quot;],[15,&quot;\n&quot;],[16,&quot;EXPOSE 3000\n&quot;],[17,&quot;\n&quot;],[18,&quot;CMD [\&quot;node\&quot;, \&quot;index.js\&quot;]&quot;]],&quot;file_abs_path&quot;:&quot;C:\\Users\\HP-PC\\Desktop\\projet\\soa\\api-gateway\\dockerfile&quot;,&quot;repo_file_path&quot;:&quot;/api-gateway/dockerfile&quot;,&quot;file_line_range&quot;:[1,18],&quot;guideline&quot;:&quot;https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created&quot;,&quot;resource&quot;:&quot;C:/Users/HP-PC/Desktop/projet/soa/api-gateway/dockerfile.&quot;,&quot;description&quot;:null,&quot;short_description&quot;:null,&quot;check_result&quot;:{&quot;evaluated_keys&quot;:null,&quot;inspected_key&quot;:&quot;&quot;}}" />
+              <option name="platformCheckId" value="BC_DKR_3" />
+              <option name="suppressible" value="true" />
+              <option name="id" value="7c127b2c-4c6b-4d8d-b082-d86f354d65e4" />
+              <option name="category" value="IAC" />
+              <option name="framework" value="DOCKERFILE" />
+              <option name="checkId" value="CKV_DOCKER_3" />
+              <option name="checkName" value="Ensure that a user for the container has been created" />
+              <option name="resultName" value="Ensure that a user for the container has been created" />
+              <option name="popupTitle" value="Ensure that a user for the container has been created" />
+              <option name="resource" value="$PROJECT_DIR$/api-gateway/dockerfile." />
+              <option name="lineRange">
+                <Range>
+                  <option name="end" value="18" />
+                  <option name="start" value="1" />
+                </Range>
+              </option>
+              <option name="fileDetails">
+                <ScanResultFileDetails>
+                  <option name="absolutePath" value="C:\Users\HP-PC\Desktop\projet\soa\api-gateway\dockerfile" />
+                  <option name="relativePath" value="\api-gateway\dockerfile" />
+                  <option name="fileName" value="dockerfile" />
+                  <option name="extension" value="" />
+                </ScanResultFileDetails>
+              </option>
+            </ScanResult>
+          </value>
+        </entry>
+        <entry key="b6f1ba3d-c880-492e-bf46-205632a97210">
+          <value>
+            <ScanResult>
+              <option name="codeAnnotation">
+                <map>
+                  <entry key="1">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="1" />
+                        <option name="text" value="FROM node:20-alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="2" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="3">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="3" />
+                        <option name="text" value="WORKDIR /app" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="4">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="4" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="5">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="5" />
+                        <option name="text" value="COPY MS2-document-service/package*.json ./" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="6">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="6" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="7">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="7" />
+                        <option name="text" value="RUN npm install --production" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="8">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="8" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="9">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="9" />
+                        <option name="text" value="COPY MS2-document-service/ ." />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="10">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="10" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="11">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="11" />
+                        <option name="text" value="# Proto MS1 copiÃ© dans /app/ms1-user-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="12">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="12" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="13">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="13" />
+                        <option name="text" value="COPY MS1-User-Service/proto ./ms1-user-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="14">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="14" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="15">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="15" />
+                        <option name="text" value="EXPOSE 50052" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="16">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="16" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="17">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="17" />
+                        <option name="text" value="CMD [&quot;node&quot;, &quot;server.js&quot;]" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="documentation" value="https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images" />
+              <option name="originalResult" value="{&quot;check_id&quot;:&quot;CKV_DOCKER_2&quot;,&quot;bc_check_id&quot;:&quot;BC_DKR_2&quot;,&quot;check_name&quot;:&quot;Ensure that HEALTHCHECK instructions have been added to container images&quot;,&quot;code_block&quot;:[[1,&quot;FROM node:20-alpine\n&quot;],[2,&quot;\n&quot;],[3,&quot;WORKDIR /app\n&quot;],[4,&quot;\n&quot;],[5,&quot;COPY MS2-document-service/package*.json ./\n&quot;],[6,&quot;\n&quot;],[7,&quot;RUN npm install --production\n&quot;],[8,&quot;\n&quot;],[9,&quot;COPY MS2-document-service/ .\n&quot;],[10,&quot;\n&quot;],[11,&quot;# Proto MS1 copiÃ© dans /app/ms1-user-service/proto\n&quot;],[12,&quot;\n&quot;],[13,&quot;COPY MS1-User-Service/proto ./ms1-user-service/proto\n&quot;],[14,&quot;\n&quot;],[15,&quot;EXPOSE 50052\n&quot;],[16,&quot;\n&quot;],[17,&quot;CMD [\&quot;node\&quot;, \&quot;server.js\&quot;]&quot;]],&quot;file_abs_path&quot;:&quot;C:\\Users\\HP-PC\\Desktop\\projet\\soa\\MS2-document-service\\dockerfile&quot;,&quot;repo_file_path&quot;:&quot;/MS2-document-service/dockerfile&quot;,&quot;file_line_range&quot;:[1,17],&quot;guideline&quot;:&quot;https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images&quot;,&quot;resource&quot;:&quot;C:/Users/HP-PC/Desktop/projet/soa/MS2-document-service/dockerfile.&quot;,&quot;description&quot;:null,&quot;short_description&quot;:null,&quot;check_result&quot;:{&quot;evaluated_keys&quot;:null,&quot;inspected_key&quot;:&quot;&quot;}}" />
+              <option name="platformCheckId" value="BC_DKR_2" />
+              <option name="suppressible" value="true" />
+              <option name="id" value="b6f1ba3d-c880-492e-bf46-205632a97210" />
+              <option name="category" value="IAC" />
+              <option name="framework" value="DOCKERFILE" />
+              <option name="checkId" value="CKV_DOCKER_2" />
+              <option name="checkName" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="resultName" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="popupTitle" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="resource" value="$PROJECT_DIR$/MS2-document-service/dockerfile." />
+              <option name="lineRange">
+                <Range>
+                  <option name="end" value="17" />
+                  <option name="start" value="1" />
+                </Range>
+              </option>
+              <option name="fileDetails">
+                <ScanResultFileDetails>
+                  <option name="absolutePath" value="C:\Users\HP-PC\Desktop\projet\soa\MS2-document-service\dockerfile" />
+                  <option name="relativePath" value="\MS2-document-service\dockerfile" />
+                  <option name="fileName" value="dockerfile" />
+                  <option name="extension" value="" />
+                </ScanResultFileDetails>
+              </option>
+            </ScanResult>
+          </value>
+        </entry>
+        <entry key="bb108f9f-699c-4caf-9feb-bd54b5bfdb7b">
+          <value>
+            <ScanResult>
+              <option name="codeAnnotation">
+                <map>
+                  <entry key="1">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="1" />
+                        <option name="text" value="FROM node:20-alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="2" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="3">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="3" />
+                        <option name="text" value="RUN apk add --no-cache python3 make g++" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="4">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="4" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="5">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="5" />
+                        <option name="text" value="WORKDIR /app" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="6">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="6" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="7">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="7" />
+                        <option name="text" value="COPY MS1-User-Service/package*.json ./" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="8">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="8" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="9">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="9" />
+                        <option name="text" value="COPY MS1-User-Service/ ." />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="10">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="10" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="11">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="11" />
+                        <option name="text" value="# Rebuild sqlite3 APRÃˆS le COPY pour compiler pour Linux Alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="12">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="12" />
+                        <option name="text" value="# et non Windows" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="13">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="13" />
+                        <option name="text" value="RUN npm install --production &amp;&amp; npm rebuild sqlite3" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="14">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="14" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="15">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="15" />
+                        <option name="text" value="EXPOSE 50051" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="16">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="16" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="17">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="17" />
+                        <option name="text" value="CMD [&quot;node&quot;, &quot;server.js&quot;]" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="documentation" value="https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created" />
+              <option name="originalResult" value="{&quot;check_id&quot;:&quot;CKV_DOCKER_3&quot;,&quot;bc_check_id&quot;:&quot;BC_DKR_3&quot;,&quot;check_name&quot;:&quot;Ensure that a user for the container has been created&quot;,&quot;code_block&quot;:[[1,&quot;FROM node:20-alpine\n&quot;],[2,&quot;\n&quot;],[3,&quot;RUN apk add --no-cache python3 make g++\n&quot;],[4,&quot;\n&quot;],[5,&quot;WORKDIR /app\n&quot;],[6,&quot;\n&quot;],[7,&quot;COPY MS1-User-Service/package*.json ./\n&quot;],[8,&quot;\n&quot;],[9,&quot;COPY MS1-User-Service/ .\n&quot;],[10,&quot;\n&quot;],[11,&quot;# Rebuild sqlite3 APRÃˆS le COPY pour compiler pour Linux Alpine\n&quot;],[12,&quot;# et non Windows\n&quot;],[13,&quot;RUN npm install --production \u0026\u0026 npm rebuild sqlite3\n&quot;],[14,&quot;\n&quot;],[15,&quot;EXPOSE 50051\n&quot;],[16,&quot;\n&quot;],[17,&quot;CMD [\&quot;node\&quot;, \&quot;server.js\&quot;]&quot;]],&quot;file_abs_path&quot;:&quot;C:\\Users\\HP-PC\\Desktop\\projet\\soa\\MS1-User-Service\\dockerfile&quot;,&quot;repo_file_path&quot;:&quot;/MS1-User-Service/dockerfile&quot;,&quot;file_line_range&quot;:[1,17],&quot;guideline&quot;:&quot;https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created&quot;,&quot;resource&quot;:&quot;C:/Users/HP-PC/Desktop/projet/soa/MS1-User-Service/dockerfile.&quot;,&quot;description&quot;:null,&quot;short_description&quot;:null,&quot;check_result&quot;:{&quot;evaluated_keys&quot;:null,&quot;inspected_key&quot;:&quot;&quot;}}" />
+              <option name="platformCheckId" value="BC_DKR_3" />
+              <option name="suppressible" value="true" />
+              <option name="id" value="bb108f9f-699c-4caf-9feb-bd54b5bfdb7b" />
+              <option name="category" value="IAC" />
+              <option name="framework" value="DOCKERFILE" />
+              <option name="checkId" value="CKV_DOCKER_3" />
+              <option name="checkName" value="Ensure that a user for the container has been created" />
+              <option name="resultName" value="Ensure that a user for the container has been created" />
+              <option name="popupTitle" value="Ensure that a user for the container has been created" />
+              <option name="resource" value="$PROJECT_DIR$/MS1-User-Service/dockerfile." />
+              <option name="lineRange">
+                <Range>
+                  <option name="end" value="17" />
+                  <option name="start" value="1" />
+                </Range>
+              </option>
+              <option name="fileDetails">
+                <ScanResultFileDetails>
+                  <option name="absolutePath" value="C:\Users\HP-PC\Desktop\projet\soa\MS1-User-Service\dockerfile" />
+                  <option name="relativePath" value="\MS1-User-Service\dockerfile" />
+                  <option name="fileName" value="dockerfile" />
+                  <option name="extension" value="" />
+                </ScanResultFileDetails>
+              </option>
+            </ScanResult>
+          </value>
+        </entry>
+        <entry key="cc8282c6-2c62-4a18-88b1-60361a6340a7">
+          <value>
+            <ScanResult>
+              <option name="codeAnnotation">
+                <map>
+                  <entry key="1">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="1" />
+                        <option name="text" value="FROM node:20-alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="2" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="3">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="3" />
+                        <option name="text" value="WORKDIR /app" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="4">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="4" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="5">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="5" />
+                        <option name="text" value="COPY api-gateway/package*.json ./" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="6">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="6" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="7">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="7" />
+                        <option name="text" value="RUN npm install --production" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="8">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="8" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="9">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="9" />
+                        <option name="text" value="COPY api-gateway/ ." />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="10">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="10" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="11">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="11" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="12">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="12" />
+                        <option name="text" value="COPY MS1-User-Service/proto ./ms1-user-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="13">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="13" />
+                        <option name="text" value="COPY MS2-document-service/proto ./ms2-document-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="14">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="14" />
+                        <option name="text" value="COPY MS3-Analytics-Service/proto ./ms3-analytics-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="15">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="15" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="16">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="16" />
+                        <option name="text" value="EXPOSE 3000" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="17">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="17" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="18">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="18" />
+                        <option name="text" value="CMD [&quot;node&quot;, &quot;index.js&quot;]" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="documentation" value="https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images" />
+              <option name="originalResult" value="{&quot;check_id&quot;:&quot;CKV_DOCKER_2&quot;,&quot;bc_check_id&quot;:&quot;BC_DKR_2&quot;,&quot;check_name&quot;:&quot;Ensure that HEALTHCHECK instructions have been added to container images&quot;,&quot;code_block&quot;:[[1,&quot;FROM node:20-alpine\n&quot;],[2,&quot;\n&quot;],[3,&quot;WORKDIR /app\n&quot;],[4,&quot;\n&quot;],[5,&quot;COPY api-gateway/package*.json ./\n&quot;],[6,&quot;\n&quot;],[7,&quot;RUN npm install --production\n&quot;],[8,&quot;\n&quot;],[9,&quot;COPY api-gateway/ .\n&quot;],[10,&quot;\n&quot;],[11,&quot;\n&quot;],[12,&quot;COPY MS1-User-Service/proto ./ms1-user-service/proto\n&quot;],[13,&quot;COPY MS2-document-service/proto ./ms2-document-service/proto\n&quot;],[14,&quot;COPY MS3-Analytics-Service/proto ./ms3-analytics-service/proto\n&quot;],[15,&quot;\n&quot;],[16,&quot;EXPOSE 3000\n&quot;],[17,&quot;\n&quot;],[18,&quot;CMD [\&quot;node\&quot;, \&quot;index.js\&quot;]&quot;]],&quot;file_abs_path&quot;:&quot;C:\\Users\\HP-PC\\Desktop\\projet\\soa\\api-gateway\\dockerfile&quot;,&quot;repo_file_path&quot;:&quot;/api-gateway/dockerfile&quot;,&quot;file_line_range&quot;:[1,18],&quot;guideline&quot;:&quot;https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images&quot;,&quot;resource&quot;:&quot;C:/Users/HP-PC/Desktop/projet/soa/api-gateway/dockerfile.&quot;,&quot;description&quot;:null,&quot;short_description&quot;:null,&quot;check_result&quot;:{&quot;evaluated_keys&quot;:null,&quot;inspected_key&quot;:&quot;&quot;}}" />
+              <option name="platformCheckId" value="BC_DKR_2" />
+              <option name="suppressible" value="true" />
+              <option name="id" value="cc8282c6-2c62-4a18-88b1-60361a6340a7" />
+              <option name="category" value="IAC" />
+              <option name="framework" value="DOCKERFILE" />
+              <option name="checkId" value="CKV_DOCKER_2" />
+              <option name="checkName" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="resultName" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="popupTitle" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="resource" value="$PROJECT_DIR$/api-gateway/dockerfile." />
+              <option name="lineRange">
+                <Range>
+                  <option name="end" value="18" />
+                  <option name="start" value="1" />
+                </Range>
+              </option>
+              <option name="fileDetails">
+                <ScanResultFileDetails>
+                  <option name="absolutePath" value="C:\Users\HP-PC\Desktop\projet\soa\api-gateway\dockerfile" />
+                  <option name="relativePath" value="\api-gateway\dockerfile" />
+                  <option name="fileName" value="dockerfile" />
+                  <option name="extension" value="" />
+                </ScanResultFileDetails>
+              </option>
+            </ScanResult>
+          </value>
+        </entry>
+        <entry key="d4e92be6-7e0c-4cbf-a88b-71ef3e0f765f">
+          <value>
+            <ScanResult>
+              <option name="codeAnnotation">
+                <map>
+                  <entry key="1">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="1" />
+                        <option name="text" value="FROM node:20-alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="2" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="3">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="3" />
+                        <option name="text" value="RUN apk add --no-cache python3 make g++" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="4">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="4" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="5">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="5" />
+                        <option name="text" value="WORKDIR /app" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="6">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="6" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="7">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="7" />
+                        <option name="text" value="COPY MS1-User-Service/package*.json ./" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="8">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="8" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="9">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="9" />
+                        <option name="text" value="COPY MS1-User-Service/ ." />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="10">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="10" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="11">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="11" />
+                        <option name="text" value="# Rebuild sqlite3 APRÃˆS le COPY pour compiler pour Linux Alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="12">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="12" />
+                        <option name="text" value="# et non Windows" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="13">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="13" />
+                        <option name="text" value="RUN npm install --production &amp;&amp; npm rebuild sqlite3" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="14">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="14" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="15">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="15" />
+                        <option name="text" value="EXPOSE 50051" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="16">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="16" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="17">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="17" />
+                        <option name="text" value="CMD [&quot;node&quot;, &quot;server.js&quot;]" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="documentation" value="https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images" />
+              <option name="originalResult" value="{&quot;check_id&quot;:&quot;CKV_DOCKER_2&quot;,&quot;bc_check_id&quot;:&quot;BC_DKR_2&quot;,&quot;check_name&quot;:&quot;Ensure that HEALTHCHECK instructions have been added to container images&quot;,&quot;code_block&quot;:[[1,&quot;FROM node:20-alpine\n&quot;],[2,&quot;\n&quot;],[3,&quot;RUN apk add --no-cache python3 make g++\n&quot;],[4,&quot;\n&quot;],[5,&quot;WORKDIR /app\n&quot;],[6,&quot;\n&quot;],[7,&quot;COPY MS1-User-Service/package*.json ./\n&quot;],[8,&quot;\n&quot;],[9,&quot;COPY MS1-User-Service/ .\n&quot;],[10,&quot;\n&quot;],[11,&quot;# Rebuild sqlite3 APRÃˆS le COPY pour compiler pour Linux Alpine\n&quot;],[12,&quot;# et non Windows\n&quot;],[13,&quot;RUN npm install --production \u0026\u0026 npm rebuild sqlite3\n&quot;],[14,&quot;\n&quot;],[15,&quot;EXPOSE 50051\n&quot;],[16,&quot;\n&quot;],[17,&quot;CMD [\&quot;node\&quot;, \&quot;server.js\&quot;]&quot;]],&quot;file_abs_path&quot;:&quot;C:\\Users\\HP-PC\\Desktop\\projet\\soa\\MS1-User-Service\\dockerfile&quot;,&quot;repo_file_path&quot;:&quot;/MS1-User-Service/dockerfile&quot;,&quot;file_line_range&quot;:[1,17],&quot;guideline&quot;:&quot;https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images&quot;,&quot;resource&quot;:&quot;C:/Users/HP-PC/Desktop/projet/soa/MS1-User-Service/dockerfile.&quot;,&quot;description&quot;:null,&quot;short_description&quot;:null,&quot;check_result&quot;:{&quot;evaluated_keys&quot;:null,&quot;inspected_key&quot;:&quot;&quot;}}" />
+              <option name="platformCheckId" value="BC_DKR_2" />
+              <option name="suppressible" value="true" />
+              <option name="id" value="d4e92be6-7e0c-4cbf-a88b-71ef3e0f765f" />
+              <option name="category" value="IAC" />
+              <option name="framework" value="DOCKERFILE" />
+              <option name="checkId" value="CKV_DOCKER_2" />
+              <option name="checkName" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="resultName" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="popupTitle" value="Ensure that HEALTHCHECK instructions have been added to container images" />
+              <option name="resource" value="$PROJECT_DIR$/MS1-User-Service/dockerfile." />
+              <option name="lineRange">
+                <Range>
+                  <option name="end" value="17" />
+                  <option name="start" value="1" />
+                </Range>
+              </option>
+              <option name="fileDetails">
+                <ScanResultFileDetails>
+                  <option name="absolutePath" value="C:\Users\HP-PC\Desktop\projet\soa\MS1-User-Service\dockerfile" />
+                  <option name="relativePath" value="\MS1-User-Service\dockerfile" />
+                  <option name="fileName" value="dockerfile" />
+                  <option name="extension" value="" />
+                </ScanResultFileDetails>
+              </option>
+            </ScanResult>
+          </value>
+        </entry>
+        <entry key="e1576a3a-1c1e-48f8-8b1a-72b82c9ef157">
+          <value>
+            <ScanResult>
+              <option name="codeAnnotation">
+                <map>
+                  <entry key="1">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="1" />
+                        <option name="text" value="FROM node:20-alpine" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="2" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="3">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="3" />
+                        <option name="text" value="WORKDIR /app" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="4">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="4" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="5">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="5" />
+                        <option name="text" value="COPY MS2-document-service/package*.json ./" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="6">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="6" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="7">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="7" />
+                        <option name="text" value="RUN npm install --production" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="8">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="8" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="9">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="9" />
+                        <option name="text" value="COPY MS2-document-service/ ." />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="10">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="10" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="11">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="11" />
+                        <option name="text" value="# Proto MS1 copiÃ© dans /app/ms1-user-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="12">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="12" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="13">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="13" />
+                        <option name="text" value="COPY MS1-User-Service/proto ./ms1-user-service/proto" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="14">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="14" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="15">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="15" />
+                        <option name="text" value="EXPOSE 50052" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="16">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="16" />
+                        <option name="text" value="" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                  <entry key="17">
+                    <value>
+                      <ScanResultCodeAnnotation>
+                        <option name="row" value="17" />
+                        <option name="text" value="CMD [&quot;node&quot;, &quot;server.js&quot;]" />
+                        <option name="displayType" value="INFO" />
+                      </ScanResultCodeAnnotation>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="documentation" value="https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created" />
+              <option name="originalResult" value="{&quot;check_id&quot;:&quot;CKV_DOCKER_3&quot;,&quot;bc_check_id&quot;:&quot;BC_DKR_3&quot;,&quot;check_name&quot;:&quot;Ensure that a user for the container has been created&quot;,&quot;code_block&quot;:[[1,&quot;FROM node:20-alpine\n&quot;],[2,&quot;\n&quot;],[3,&quot;WORKDIR /app\n&quot;],[4,&quot;\n&quot;],[5,&quot;COPY MS2-document-service/package*.json ./\n&quot;],[6,&quot;\n&quot;],[7,&quot;RUN npm install --production\n&quot;],[8,&quot;\n&quot;],[9,&quot;COPY MS2-document-service/ .\n&quot;],[10,&quot;\n&quot;],[11,&quot;# Proto MS1 copiÃ© dans /app/ms1-user-service/proto\n&quot;],[12,&quot;\n&quot;],[13,&quot;COPY MS1-User-Service/proto ./ms1-user-service/proto\n&quot;],[14,&quot;\n&quot;],[15,&quot;EXPOSE 50052\n&quot;],[16,&quot;\n&quot;],[17,&quot;CMD [\&quot;node\&quot;, \&quot;server.js\&quot;]&quot;]],&quot;file_abs_path&quot;:&quot;C:\\Users\\HP-PC\\Desktop\\projet\\soa\\MS2-document-service\\dockerfile&quot;,&quot;repo_file_path&quot;:&quot;/MS2-document-service/dockerfile&quot;,&quot;file_line_range&quot;:[1,17],&quot;guideline&quot;:&quot;https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created&quot;,&quot;resource&quot;:&quot;C:/Users/HP-PC/Desktop/projet/soa/MS2-document-service/dockerfile.&quot;,&quot;description&quot;:null,&quot;short_description&quot;:null,&quot;check_result&quot;:{&quot;evaluated_keys&quot;:null,&quot;inspected_key&quot;:&quot;&quot;}}" />
+              <option name="platformCheckId" value="BC_DKR_3" />
+              <option name="suppressible" value="true" />
+              <option name="id" value="e1576a3a-1c1e-48f8-8b1a-72b82c9ef157" />
+              <option name="category" value="IAC" />
+              <option name="framework" value="DOCKERFILE" />
+              <option name="checkId" value="CKV_DOCKER_3" />
+              <option name="checkName" value="Ensure that a user for the container has been created" />
+              <option name="resultName" value="Ensure that a user for the container has been created" />
+              <option name="popupTitle" value="Ensure that a user for the container has been created" />
+              <option name="resource" value="$PROJECT_DIR$/MS2-document-service/dockerfile." />
+              <option name="lineRange">
+                <Range>
+                  <option name="end" value="17" />
+                  <option name="start" value="1" />
+                </Range>
+              </option>
+              <option name="fileDetails">
+                <ScanResultFileDetails>
+                  <option name="absolutePath" value="C:\Users\HP-PC\Desktop\projet\soa\MS2-document-service\dockerfile" />
+                  <option name="relativePath" value="\MS2-document-service\dockerfile" />
+                  <option name="fileName" value="dockerfile" />
+                  <option name="extension" value="" />
+                </ScanResultFileDetails>
+              </option>
+            </ScanResult>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="summary">
+      <ScanSummary>
+        <option name="failed" value="8" />
+        <option name="passed" value="40" />
+      </ScanSummary>
     </option>
   </component>
 </project>

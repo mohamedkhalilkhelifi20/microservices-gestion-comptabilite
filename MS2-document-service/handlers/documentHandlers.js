@@ -30,10 +30,7 @@ async function createInvoice(call, callback) {
 
 async function updateInvoice(call, callback) {
     try {
-        // invoiceService.updateInvoice retourne { invoice, becamePaid }
         const { invoice, becamePaid } = await invoiceService.updateInvoice(call.request);
-
-        // Publier invoice.paid si le statut vient de passer à "payee"
         if (becamePaid) {
             kafka.publishInvoicePaid({
                 invoice_id:  invoice.id,

@@ -26,9 +26,7 @@ async function disconnect() {
     }
 }
 
-// ── user.created
-// Déclenché : quand un nouveau client est créé (CreateClient)
-// Consommateur : MS3 — initialise le dashboard du client
+//user.created
 async function publishUserCreated(client) {
     await connect();
     await producer.send({
@@ -49,8 +47,6 @@ async function publishUserCreated(client) {
 }
 
 // ── comptable.assigne
-// Déclenché : quand un comptable est assigné à un client
-// Consommateur : MS3 — log audit (qui gère qui)
 async function publishComptableAssigned({ comptable_id, client_id, specialite }) {
     await connect();
     await producer.send({

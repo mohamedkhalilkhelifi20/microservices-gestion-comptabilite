@@ -1,15 +1,14 @@
 'use strict';
 
 const { v4: uuidv4 } = require('uuid');
-const initDatabase   = require('../../MS2-document-service/db/database');
-const { verifyClientExists } = require('../../MS2-document-service/grpc/ms1Client');
+const initDatabase   = require('../db/database');
 
-//CreateAlerte
-async function createAlerte({ client_id, type, message, severity,
-                                entity_id, entity_type }) {
-    // Vérifier que le client existe dans MS1
-    await verifyClientExists(client_id);
+function now() {
+    return new Date().toISOString();
+}
 
+
+async function createAlerte({ client_id, type, message, severity, entity_id = '', entity_type = '' }) {
     const db = await initDatabase();
 
     const doc = {
@@ -20,32 +19,33 @@ async function createAlerte({ client_id, type, message, severity,
         severity,
         entity_id,
         entity_type,
-        is_read:     false,
-        created_at:  new Date().toISOString(),
+        is_read:    false,
+        created_at: now(),
     };
 
-    const rxDoc = await db.alertes.insert(doc);
-    console.log(`[MS2] Alerte créée → ${doc.id} (${severity} | ${type})`);
+    await db.alertes.insert(doc);
+
+    const rxDoc = await db.alertes.findOne(doc.id).exec();
+    console.log(`[MS3][AlerteService] Alerte créée → ${doc.id} | type: ${type} | severity: ${severity}`);
     return rxDoc.toJSON();
 }
 
-// GetAlertes
 async function getAlertes({ client_id }) {
-    const db   = await initDatabase();
-    const docs = await db.alertes.find({
+    const db      = await initDatabase();
+    const results = await db.alertes.find({
         selector: { client_id },
         sort:     [{ created_at: 'desc' }],
     }).exec();
-    return docs.map(d => d.toJSON());
+    return results.map(d => d.toJSON());
 }
 
-//  GetAllAlertes
 async function getAllAlertes() {
-    const db   = await initDatabase();
-    const docs = await db.alertes.find({
+    const db      = await initDatabase();
+    const results = await db.alertes.find({
         sort: [{ created_at: 'desc' }],
     }).exec();
-    return docs.map(d => ({ ...d._data }));
+    return results.map(d => d.toJSON());
 }
+
 
 module.exports = { createAlerte, getAlertes, getAllAlertes };

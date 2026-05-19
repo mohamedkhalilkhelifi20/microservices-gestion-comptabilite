@@ -1,0 +1,18 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY api-gateway/package*.json ./
+
+RUN npm install --production
+
+COPY api-gateway/ .
+
+
+COPY MS1-User-Service/proto ./ms1-user-service/proto
+COPY MS2-document-service/proto ./ms2-document-service/proto
+COPY MS3-Analytics-Service/proto ./ms3-analytics-service/proto
+
+EXPOSE 3000
+
+CMD ["node", "index.js"]

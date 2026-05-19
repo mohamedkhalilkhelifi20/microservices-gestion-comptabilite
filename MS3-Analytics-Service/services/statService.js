@@ -15,12 +15,6 @@ function getPeriode() {
 }
 
 //Service
-
-/**
- * Appelé automatiquement par le Kafka consumer
- * quand un event invoice.created ou declaration.submitted est reçu.
- * Recalcule et met à jour les KPIs du client pour la période courante.
- */
 async function calculateAndSaveStats({ client_id, montant_ht = 0, tva_montant = 0, type_event }) {
     const db      = await initDatabase();
     const periode = getPeriode();

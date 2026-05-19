@@ -1,0 +1,17 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY MS3-Analytics-Service/package*.json ./
+
+RUN npm install --production
+
+COPY MS3-Analytics-Service/ .
+
+
+COPY MS1-User-Service/proto ./ms1-user-service/proto
+COPY MS2-document-service/proto ./ms2-document-service/proto
+
+EXPOSE 50053
+
+CMD ["node", "server.js"]

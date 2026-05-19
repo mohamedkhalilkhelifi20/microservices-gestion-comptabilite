@@ -77,11 +77,10 @@ async function initDatabase() {
     await db.addCollections({
         factures: { schema: factureSchema },
         declarations: { schema: declarationSchema },
-        alertes:      { schema: alerteSchema },
     });
 
     dbInstance = db;
-    console.log('[MS2] RxDB initialisé — 3 collections : factures, declarations, alertes');
+    console.log('[MS2] RxDB initialisé — 3 collections : factures, declarations');
     return dbInstance;
 }
 

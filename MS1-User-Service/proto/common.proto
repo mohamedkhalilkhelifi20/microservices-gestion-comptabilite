@@ -2,6 +2,4 @@ syntax = "proto3";
 
 package common;
 
-// EmptyRequest — utilisé par tous les services
-// pour les méthodes qui ne nécessitent pas de paramètre (ex: GetAll)
 message EmptyRequest {}

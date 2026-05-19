@@ -26,8 +26,6 @@ async function disconnect() {
     }
 }
 
-// ── invoice.created
-// Déclenché : quand une nouvelle facture est créée (CreateInvoice)
 async function publishInvoiceCreated(invoice) {
     await connect();
     await producer.send({
@@ -48,9 +46,6 @@ async function publishInvoiceCreated(invoice) {
     console.log(`[MS2][Kafka] invoice.created publié → ${invoice.id}`);
 }
 
-// ── invoice.signed
-// Déclenché : quand une facture est signée (SignInvoice)
-// Consommateur : MS3 — crée notification + audit_log "SIGN"
 async function publishInvoiceSigned({ invoice_id, client_id, comptable_id,
                                         numero, signature_hash }) {
     await connect();
@@ -72,9 +67,6 @@ async function publishInvoiceSigned({ invoice_id, client_id, comptable_id,
     console.log(`[MS2][Kafka] invoice.signed publié → ${invoice_id}`);
 }
 
-// ── invoice.paid
-// Déclenché : quand une facture passe au statut "payee"
-// Consommateur : MS3 — met à jour trésorerie dans dashboard
 async function publishInvoicePaid({ invoice_id, client_id, montant_ttc }) {
     await connect();
     await producer.send({
@@ -93,9 +85,6 @@ async function publishInvoicePaid({ invoice_id, client_id, montant_ttc }) {
     console.log(`[MS2][Kafka] invoice.paid publié → ${invoice_id}`);
 }
 
-// ── declaration.submitted
-// Déclenché : quand une déclaration est créée (CreateDeclaration)
-// Consommateur : MS3 — met à jour tva_due dans dashboard
 async function publishDeclarationSubmitted(declaration) {
     await connect();
     await producer.send({
@@ -116,9 +105,6 @@ async function publishDeclarationSubmitted(declaration) {
     console.log(`[MS2][Kafka] declaration.submitted publié → ${declaration.id}`);
 }
 
-// ── declaration.validated
-// Déclenché : quand une déclaration est validée (ValidateDeclaration)
-// Consommateur : MS3 — crée notification + audit_log "VALIDATE"
 async function publishDeclarationValidated(declaration) {
     await connect();
     await producer.send({

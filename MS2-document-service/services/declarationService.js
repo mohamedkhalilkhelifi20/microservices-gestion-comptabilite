@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const initDatabase   = require('../db/database');
 const { verifyClientExists, verifyComptableExists, verifyAssignation } = require('../grpc/ms1Client');
 
-// ── CreateDeclaration ─────────────────────────────────────────────────────
+//  CreateDeclaration
 async function createDeclaration({ client_id, client_nom, comptable_id,
                                      type, periode, montant }) {
     await verifyClientExists(client_id);
@@ -13,7 +13,7 @@ async function createDeclaration({ client_id, client_nom, comptable_id,
 
     const db = await initDatabase();
 
-    // Unicité métier : un seul brouillon par client/type/période
+
     const existing = await db.declarations.findOne({
         selector: { client_id, type, periode, statut: 'brouillon' },
     }).exec();
@@ -40,14 +40,13 @@ async function createDeclaration({ client_id, client_nom, comptable_id,
     return rxDoc.toJSON();
 }
 
-// ── UpdateDeclaration ─────────────────────────────────────────────────────
+// UpdateDeclaration
 async function updateDeclaration({ declaration_id, montant, periode }) {
     const db  = await initDatabase();
     const doc = await db.declarations.findOne(declaration_id).exec();
 
     if (!doc) throw new Error(`Déclaration non trouvée : ${declaration_id}`);
 
-    // Règle métier : seul un brouillon est modifiable
     if (doc.statut !== 'brouillon') {
         throw new Error(
             `Impossible de modifier la déclaration ${declaration_id} — ` +
@@ -64,7 +63,6 @@ async function updateDeclaration({ declaration_id, montant, periode }) {
         throw new Error('Aucun champ à modifier fourni.');
     }
 
-    // Vérifier conflit de période si on la change
     if (patch.periode) {
         const conflict = await db.declarations.findOne({
             selector: {
@@ -83,14 +81,13 @@ async function updateDeclaration({ declaration_id, montant, periode }) {
 
     await doc.patch(patch);
 
-    // ── Relire depuis DB après patch pour avoir les valeurs à jour ─────────
     const updated = await db.declarations.findOne(declaration_id).exec();
 
     console.log(`[MS2] Déclaration mise à jour → ${declaration_id} | patch: ${JSON.stringify(patch)}`);
     return updated.toJSON();
 }
 
-// ── DeleteDeclaration ─────────────────────────────────────────────────────
+//  DeleteDeclaration
 async function deleteDeclaration({ declaration_id }) {
     const db  = await initDatabase();
     const doc = await db.declarations.findOne(declaration_id).exec();
@@ -109,7 +106,7 @@ async function deleteDeclaration({ declaration_id }) {
     return { success: true, message: `Déclaration ${declaration_id} supprimée avec succès` };
 }
 
-// ── ValidateDeclaration ───────────────────────────────────────────────────
+// ValidateDeclaration
 async function validateDeclaration({ declaration_id, comptable_id }) {
     const db  = await initDatabase();
     const doc = await db.declarations.findOne(declaration_id).exec();
@@ -129,7 +126,7 @@ async function validateDeclaration({ declaration_id, comptable_id }) {
     return updated.toJSON();
 }
 
-// ── GetDeclaration ────────────────────────────────────────────────────────
+//GetDeclaration
 async function getDeclaration({ id }) {
     const db  = await initDatabase();
     const doc = await db.declarations.findOne(id).exec();
@@ -137,23 +134,23 @@ async function getDeclaration({ id }) {
     return doc.toJSON();
 }
 
-// ── GetClientDeclarations ─────────────────────────────────────────────────
+// GetClientDeclarations
 async function getClientDeclarations({ client_id }) {
     const db   = await initDatabase();
     const docs = await db.declarations.find({
         selector: { client_id },
         sort:     [{ created_at: 'desc' }],
     }).exec();
-    return docs.map(d => ({ ...d._data }));
+    return docs.map(d => d.toJSON());
 }
 
-// ── GetAllDeclarations ────────────────────────────────────────────────────
+//  GetAllDeclarations
 async function getAllDeclarations() {
     const db   = await initDatabase();
     const docs = await db.declarations.find({
         sort: [{ created_at: 'desc' }],
     }).exec();
-    return docs.map(d => ({ ...d._data }));
+    return docs.map(d => d.toJSON());
 }
 
 module.exports = {
