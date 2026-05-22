@@ -49,7 +49,7 @@ const declarationPkg = grpc.loadPackageDefinition(
 const credentials = grpc.credentials.createInsecure();
 
 // MS1 clients
-const cabinetClient   = new cabinetPkg.CabinetService(MS1_ADDR,     credentials);
+const cabinetClient   = new cabinetPkg.CabinetService(MS1_ADDR, credentials);
 const comptableClient = new comptablePkg.ComptableService(MS1_ADDR, credentials);
 const clientClient    = new clientPkg.ClientService(MS1_ADDR,       credentials);
 
